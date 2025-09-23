@@ -1,0 +1,16 @@
+{
+  "name": "devneststudios-server",
+  "version": "1.0.0",
+  "description": "Backend server for DevNestStudios website",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "lint": "echo \"No linting configured\"",
+    "test": "echo \"No tests configured\""
+  },
+  "keywords": ["express", "mongodb", "nodejs", "api"],
+  "author": "DevNestStudios",
+  "license": "MIT"
+}
