@@ -28,7 +28,8 @@ import {
   Briefcase,
   Monitor,
   Settings,
-  BookOpen
+  BookOpen,
+  CreditCard
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { GlowCard } from '@/components/ui/GlowCard'

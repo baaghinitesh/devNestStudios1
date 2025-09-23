@@ -388,7 +388,6 @@ const GamifiedRewards: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
           >
             <motion.div
               className="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto"
@@ -397,11 +396,18 @@ const GamifiedRewards: React.FC = () => {
               exit={{ opacity: 0, scale: 0.9 }}
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Debug Info */}
+              <div className="mb-4 p-2 bg-yellow-100 dark:bg-yellow-900/20 rounded text-xs">
+                Progress loaded: {userProgress ? 'Yes' : 'No'} | 
+                Points: {userProgress?.totalPoints || 0} | 
+                Achievements: {userProgress?.achievements?.length || 0}
+              </div>
+
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Your Progress</h2>
-                  <p className="text-gray-600 dark:text-gray-400">Level {userProgress.level} • {userProgress.totalPoints} points</p>
+                  <p className="text-gray-600 dark:text-gray-400">Level {userProgress?.level || 1} • {userProgress?.totalPoints || 0} points</p>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
@@ -416,7 +422,7 @@ const GamifiedRewards: React.FC = () => {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium">Level Progress</span>
                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                    {userProgress.totalPoints % 250}/250 XP
+                    {(userProgress?.totalPoints || 0) % 250}/250 XP
                   </span>
                 </div>
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
@@ -429,7 +435,7 @@ const GamifiedRewards: React.FC = () => {
 
               {/* Achievements Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                {userProgress.achievements.map((achievement) => (
+                {(userProgress?.achievements || []).map((achievement) => (
                   <div
                     key={achievement.id}
                     className={`p-4 rounded-lg border-2 transition-all duration-300 ${
@@ -508,19 +514,19 @@ const GamifiedRewards: React.FC = () => {
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                   <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                    {userProgress.achievements.filter(a => a.unlocked).length}
+                    {(userProgress?.achievements || []).filter(a => a.unlocked).length}
                   </div>
                   <div className="text-xs text-gray-600 dark:text-gray-400">Achievements</div>
                 </div>
                 <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
                   <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-                    {userProgress.unlockedTemplates.length}
+                    {userProgress?.unlockedTemplates?.length || 0}
                   </div>
                   <div className="text-xs text-gray-600 dark:text-gray-400">Templates</div>
                 </div>
                 <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
                   <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                    {userProgress.visitedPages.length}
+                    {userProgress?.visitedPages?.length || 0}
                   </div>
                   <div className="text-xs text-gray-600 dark:text-gray-400">Pages Explored</div>
                 </div>
