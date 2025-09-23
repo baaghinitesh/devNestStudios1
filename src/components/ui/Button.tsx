@@ -78,11 +78,27 @@ export function Button({
   )
 
   if (asChild) {
-    const childElement = children as React.ReactElement<any>
-    return React.cloneElement(childElement, {
-      className: cn(childElement.props?.className, classes),
-      ...props
-    })
+    try {
+      const childElement = React.Children.only(children) as React.ReactElement<any>
+      return React.cloneElement(childElement, {
+        className: cn(childElement.props?.className, classes),
+        disabled: disabled || loading,
+        ...childElement.props,
+        ...props,
+        onClick: (e: React.MouseEvent<HTMLElement>) => {
+          if (disabled || loading) {
+            e.preventDefault()
+            return
+          }
+          // Call both the original onClick and any passed onClick
+          childElement.props?.onClick?.(e)
+          props.onClick?.(e as any)
+        }
+      })
+    } catch (error) {
+      console.warn('Button asChild failed, falling back to regular button:', error)
+      // Fallback to regular button if asChild fails
+    }
   }
 
   return (

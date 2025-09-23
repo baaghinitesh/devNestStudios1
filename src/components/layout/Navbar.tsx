@@ -77,9 +77,10 @@ export function Navbar() {
                     to={item.href}
                     data-nav-link={item.href}
                     data-nav-item
+
                     className={cn(
                       'px-4 py-2 text-sm font-medium rounded-lg transition-colors relative z-10',
-                      'hover:text-primary',
+                      'hover:text-primary cursor-pointer',
                       location.pathname === item.href
                         ? 'text-primary'
                         : 'text-foreground/80'
@@ -138,7 +139,7 @@ export function Navbar() {
                     to={item.href}
                     onClick={() => setMobileMenuOpen(false)}
                     className={cn(
-                      'block px-4 py-3 text-base font-medium rounded-lg transition-colors',
+                      'block px-4 py-3 text-base font-medium rounded-lg transition-colors cursor-pointer',
                       'hover:text-primary hover:bg-primary/10',
                       location.pathname === item.href
                         ? 'text-primary bg-primary/10'
