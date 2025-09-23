@@ -18,7 +18,17 @@ import {
   Palette,
   Search,
   BarChart3,
-  Headphones
+  Headphones,
+  Lightbulb,
+  FileText,
+  Cog,
+  TestTube,
+  Rocket,
+  Target,
+  Briefcase,
+  Monitor,
+  Settings,
+  BookOpen
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { GlowCard } from '@/components/ui/GlowCard'
@@ -31,14 +41,26 @@ interface Service {
   title: string
   subtitle: string
   description: string
+  elevatorPitch: string
   icon: React.ComponentType<any>
   features: string[]
+  deliverables: string[]
+  process: {
+    title: string
+    description: string
+    duration: string
+    icon: React.ComponentType<any>
+  }[]
   pricing: {
     starter: number
     professional: number
     enterprise: string
   }
   deliveryTime: string
+  investmentRange: string
+  targetClients: string[]
+  caseStudyLink?: string
+  demoLink?: string
   techStack: string[]
   color: string
   gradient: string
@@ -56,34 +78,231 @@ interface PricingTier {
 
 const services: Service[] = [
   {
+    id: 'product-strategy',
+    title: 'Product Strategy & Discovery',
+    subtitle: 'Strategic Product Planning',
+    description: 'Comprehensive product strategy and discovery process to validate ideas and create winning product roadmaps.',
+    elevatorPitch: 'Transform your vision into a validated, market-ready product strategy with data-driven insights and clear execution roadmap.',
+    icon: Lightbulb,
+    features: [
+      'Market Research & Competitive Analysis',
+      'User Persona Development & Journey Mapping',
+      'Business Model Canvas & Value Proposition',
+      'Technical Feasibility Assessment',
+      'MVP Definition & Feature Prioritization',
+      'Go-to-Market Strategy Development'
+    ],
+    deliverables: [
+      'Product Strategy Document',
+      'Market Research Report',
+      'User Personas & Journey Maps',
+      'Technical Architecture Plan',
+      'MVP Specification',
+      'Project Roadmap & Timeline',
+      'Budget & Resource Planning'
+    ],
+    process: [
+      {
+        title: 'Discovery Workshop',
+        description: 'Deep dive into your vision, goals, and market landscape through collaborative workshops.',
+        duration: '3-5 days',
+        icon: Search
+      },
+      {
+        title: 'Market & User Research',
+        description: 'Comprehensive market analysis, competitor research, and user interviews to validate assumptions.',
+        duration: '1-2 weeks',
+        icon: Target
+      },
+      {
+        title: 'Strategy Development',
+        description: 'Create detailed product strategy, roadmap, and technical architecture recommendations.',
+        duration: '1-2 weeks',
+        icon: FileText
+      },
+      {
+        title: 'Validation & Refinement',
+        description: 'Test and refine strategy through stakeholder feedback and market validation.',
+        duration: '3-5 days',
+        icon: CheckCircle
+      }
+    ],
+    pricing: {
+      starter: 4999,
+      professional: 12999,
+      enterprise: 'Custom'
+    },
+    deliveryTime: '3-5 weeks',
+    investmentRange: '$5K - $25K',
+    targetClients: [
+      'Startups with innovative ideas',
+      'Enterprises launching new products',
+      'Companies pivoting their business model',
+      'Investors evaluating opportunities'
+    ],
+    caseStudyLink: '/case-studies/fintech-strategy',
+    techStack: ['Figma', 'Miro', 'Notion', 'Google Analytics', 'Hotjar'],
+    color: 'from-amber-500 to-orange-500',
+    gradient: 'bg-gradient-to-br from-amber-500/20 to-orange-500/20'
+  },
+  {
+    id: 'ux-ui-prototyping',
+    title: 'UX/UI & Prototyping',
+    subtitle: 'User Experience Design',
+    description: 'Comprehensive design solutions from user research to interactive prototypes, ensuring exceptional user experiences across all platforms.',
+    elevatorPitch: 'Create intuitive, beautiful, and conversion-focused designs that users love and businesses profit from.',
+    icon: Palette,
+    features: [
+      'User Research & Persona Development',
+      'Wireframing & Information Architecture',
+      'Visual Design & Brand Integration',
+      'Interactive Prototyping & Animation',
+      'Usability Testing & Optimization',
+      'Design System & Component Library'
+    ],
+    deliverables: [
+      'User Research Report & Personas',
+      'Wireframes & User Flow Diagrams',
+      'High-Fidelity UI Designs',
+      'Interactive Prototypes',
+      'Design System & Style Guide',
+      'Usability Testing Report',
+      'Developer Handoff Documentation'
+    ],
+    process: [
+      {
+        title: 'User Research',
+        description: 'Conduct user interviews, surveys, and competitive analysis to understand user needs and behaviors.',
+        duration: '1-2 weeks',
+        icon: Users
+      },
+      {
+        title: 'Wireframing & Architecture',
+        description: 'Create wireframes and information architecture to establish the foundation of user experience.',
+        duration: '1 week',
+        icon: Monitor
+      },
+      {
+        title: 'Visual Design',
+        description: 'Design high-fidelity interfaces that align with brand identity and user expectations.',
+        duration: '2-3 weeks',
+        icon: Palette
+      },
+      {
+        title: 'Prototyping & Testing',
+        description: 'Build interactive prototypes and conduct usability testing to validate design decisions.',
+        duration: '1-2 weeks',
+        icon: TestTube
+      },
+      {
+        title: 'Design System & Handoff',
+        description: 'Create comprehensive design system and prepare developer-ready assets.',
+        duration: '3-5 days',
+        icon: Settings
+      }
+    ],
+    pricing: {
+      starter: 3999,
+      professional: 9999,
+      enterprise: 'Custom'
+    },
+    deliveryTime: '4-8 weeks',
+    investmentRange: '$4K - $20K',
+    targetClients: [
+      'SaaS companies needing user-friendly interfaces',
+      'E-commerce businesses optimizing conversion',
+      'Startups building their first product',
+      'Enterprises modernizing legacy systems'
+    ],
+    caseStudyLink: '/case-studies/saas-redesign',
+    demoLink: '/demo/design-system',
+    techStack: ['Figma', 'Adobe XD', 'Principle', 'Framer', 'InVision', 'Maze'],
+    color: 'from-purple-500 to-pink-500',
+    gradient: 'bg-gradient-to-br from-purple-500/20 to-pink-500/20'
+  },
+  {
     id: 'web-development',
     title: 'Web Development',
-    subtitle: 'Modern Web Applications',
-    description: 'Full-stack web development using cutting-edge technologies. From responsive websites to complex web applications with real-time features.',
+    subtitle: 'SPAs, PWAs & Modern Web Apps',
+    description: 'Full-stack web development using cutting-edge technologies. From responsive websites to complex Progressive Web Applications.',
+    elevatorPitch: 'Build fast, scalable, and modern web applications that deliver exceptional user experiences across all devices and platforms.',
     icon: Globe,
     features: [
+      'Single Page Applications (SPAs)',
+      'Progressive Web Apps (PWAs)',
       'Responsive Design & Mobile-First Approach',
-      'Progressive Web App (PWA) Development',
       'Real-time Features & WebSocket Integration',
       'SEO Optimization & Performance Tuning',
       'API Integration & Backend Development',
       'E-commerce & Payment Gateway Integration'
     ],
+    deliverables: [
+      'Fully Functional Web Application',
+      'Responsive UI/UX Implementation',
+      'PWA with Offline Capabilities',
+      'API Integration & Backend Setup',
+      'Performance Optimization Report',
+      'SEO Implementation & Analytics',
+      'Deployment & Hosting Setup',
+      'Documentation & Training Materials'
+    ],
+    process: [
+      {
+        title: 'Planning & Architecture',
+        description: 'Define technical requirements, architecture, and technology stack for optimal performance.',
+        duration: '3-5 days',
+        icon: FileText
+      },
+      {
+        title: 'Frontend Development',
+        description: 'Build responsive, interactive user interfaces using modern frameworks and best practices.',
+        duration: '2-4 weeks',
+        icon: Monitor
+      },
+      {
+        title: 'Backend Integration',
+        description: 'Develop APIs, integrate databases, and implement business logic and authentication.',
+        duration: '1-3 weeks',
+        icon: Database
+      },
+      {
+        title: 'Testing & Optimization',
+        description: 'Comprehensive testing, performance optimization, and cross-browser compatibility.',
+        duration: '1 week',
+        icon: TestTube
+      },
+      {
+        title: 'Deployment & Launch',
+        description: 'Deploy to production, configure hosting, and provide launch support.',
+        duration: '2-3 days',
+        icon: Rocket
+      }
+    ],
     pricing: {
-      starter: 2999,
-      professional: 7999,
+      starter: 5999,
+      professional: 15999,
       enterprise: 'Custom'
     },
-    deliveryTime: '2-8 weeks',
-    techStack: ['React', 'Next.js', 'Node.js', 'TypeScript', 'Tailwind CSS'],
+    deliveryTime: '4-10 weeks',
+    investmentRange: '$6K - $35K',
+    targetClients: [
+      'Startups needing scalable web platforms',
+      'E-commerce businesses expanding online',
+      'SaaS companies building customer portals',
+      'Enterprises modernizing web presence'
+    ],
+    caseStudyLink: '/case-studies/ecommerce-platform',
+    demoLink: '/demo/web-app',
+    techStack: ['React', 'Next.js', 'Node.js', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
     color: 'from-blue-500 to-cyan-500',
     gradient: 'bg-gradient-to-br from-blue-500/20 to-cyan-500/20'
   },
   {
-    id: 'mobile-development',
-    title: 'Mobile Development',
-    subtitle: 'Native & Cross-Platform Apps',
-    description: 'High-performance mobile applications for iOS and Android using React Native and native technologies with seamless user experiences.',
+    id: 'mobile-apps',
+    title: 'Mobile Apps',
+    subtitle: 'React Native Development',
+    description: 'High-performance mobile applications for iOS and Android using React Native. Native feel with cross-platform efficiency.',
+    elevatorPitch: 'Build beautiful, native-quality mobile apps for both iOS and Android with a single codebase, reducing development time and cost by 50%.',
     icon: Smartphone,
     features: [
       'Cross-Platform Development (iOS & Android)',
@@ -91,113 +310,375 @@ const services: Service[] = [
       'Push Notifications & Deep Linking',
       'Offline Functionality & Data Sync',
       'Biometric Authentication Integration',
-      'App Store Deployment & Maintenance'
+      'App Store & Play Store Deployment',
+      'Real-time Features & WebSocket Support'
+    ],
+    deliverables: [
+      'iOS & Android Mobile Applications',
+      'App Store Ready Builds',
+      'Push Notification System',
+      'Offline Data Synchronization',
+      'User Authentication & Security',
+      'App Store Deployment Support',
+      'Analytics & Crash Reporting Setup',
+      'Maintenance & Update Documentation'
+    ],
+    process: [
+      {
+        title: 'App Architecture & Planning',
+        description: 'Define app architecture, navigation flow, and technical requirements for optimal performance.',
+        duration: '3-5 days',
+        icon: FileText
+      },
+      {
+        title: 'UI/UX Implementation',
+        description: 'Build pixel-perfect, responsive mobile interfaces following platform guidelines.',
+        duration: '2-4 weeks',
+        icon: Smartphone
+      },
+      {
+        title: 'Feature Development',
+        description: 'Implement core features, API integration, and platform-specific functionality.',
+        duration: '3-6 weeks',
+        icon: Cog
+      },
+      {
+        title: 'Testing & Optimization',
+        description: 'Comprehensive testing on real devices, performance optimization, and bug fixes.',
+        duration: '1-2 weeks',
+        icon: TestTube
+      },
+      {
+        title: 'App Store Deployment',
+        description: 'Prepare app store listings, handle submission process, and launch support.',
+        duration: '3-5 days',
+        icon: Rocket
+      }
+    ],
+    pricing: {
+      starter: 8999,
+      professional: 19999,
+      enterprise: 'Custom'
+    },
+    deliveryTime: '6-14 weeks',
+    investmentRange: '$9K - $45K',
+    targetClients: [
+      'Startups launching mobile-first products',
+      'E-commerce brands expanding to mobile',
+      'Service providers needing customer apps',
+      'Enterprises building internal tools'
+    ],
+    caseStudyLink: '/case-studies/fitness-app',
+    demoLink: '/demo/mobile-app',
+    techStack: ['React Native', 'Expo', 'Firebase', 'Redux', 'TypeScript', 'Native Modules'],
+    color: 'from-indigo-500 to-blue-600',
+    gradient: 'bg-gradient-to-br from-indigo-500/20 to-blue-600/20'
+  },
+  {
+    id: 'saas-product-engineering',
+    title: 'SaaS Product Engineering',
+    subtitle: 'Complete SaaS Solutions',
+    description: 'End-to-end SaaS product development with multi-tenant architecture, subscription management, and scalable infrastructure.',
+    elevatorPitch: 'Launch your SaaS product faster with our proven architecture, handling everything from user management to billing and analytics.',
+    icon: Cloud,
+    features: [
+      'Multi-Tenant SaaS Architecture',
+      'User Authentication & Role Management',
+      'Subscription & Billing Integration',
+      'Analytics & Reporting Dashboard',
+      'API-First Development Approach',
+      'Scalable Cloud Infrastructure',
+      'Security & Compliance (SOC2, GDPR)'
+    ],
+    deliverables: [
+      'Complete SaaS Platform',
+      'Multi-Tenant Database Architecture',
+      'User Management & Authentication',
+      'Subscription & Billing System',
+      'Admin Dashboard & Analytics',
+      'REST/GraphQL API Documentation',
+      'Cloud Infrastructure Setup',
+      'Security Audit & Compliance Report'
+    ],
+    process: [
+      {
+        title: 'SaaS Architecture Design',
+        description: 'Design scalable multi-tenant architecture and define technical requirements for your SaaS.',
+        duration: '1 week',
+        icon: FileText
+      },
+      {
+        title: 'Core Platform Development',
+        description: 'Build the foundation with user management, authentication, and multi-tenancy support.',
+        duration: '3-4 weeks',
+        icon: Database
+      },
+      {
+        title: 'Business Logic & Features',
+        description: 'Implement core business features, workflows, and user-specific functionality.',
+        duration: '4-6 weeks',
+        icon: Cog
+      },
+      {
+        title: 'Billing & Subscriptions',
+        description: 'Integrate payment processing, subscription management, and billing automation.',
+        duration: '2 weeks',
+        icon: Briefcase
+      },
+      {
+        title: 'Analytics & Deployment',
+        description: 'Set up analytics, monitoring, and deploy to scalable cloud infrastructure.',
+        duration: '1-2 weeks',
+        icon: BarChart3
+      }
+    ],
+    pricing: {
+      starter: 15999,
+      professional: 35999,
+      enterprise: 'Custom'
+    },
+    deliveryTime: '10-16 weeks',
+    investmentRange: '$16K - $80K',
+    targetClients: [
+      'Entrepreneurs building SaaS businesses',
+      'Companies digitizing their services',
+      'Startups with B2B software ideas',
+      'Enterprises launching internal SaaS tools'
+    ],
+    caseStudyLink: '/case-studies/project-management-saas',
+    demoLink: '/demo/saas-platform',
+    techStack: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'AWS/GCP', 'Docker', 'Redis'],
+    color: 'from-green-500 to-emerald-500',
+    gradient: 'bg-gradient-to-br from-green-500/20 to-emerald-500/20'
+  },
+  {
+    id: 'ai-integrations-automation',
+    title: 'AI / Integrations / Automation',
+    subtitle: 'Intelligent Automation Solutions',
+    description: 'Custom AI and automation solutions including chatbots, workflow automation, API integrations, and intelligent data processing.',
+    elevatorPitch: 'Automate repetitive tasks and add intelligence to your workflows with custom AI solutions that save time and increase efficiency.',
+    icon: Zap,
+    features: [
+      'AI Chatbots & Virtual Assistants',
+      'Workflow Automation & Process Optimization',
+      'Third-Party API Integrations',
+      'Natural Language Processing (NLP)',
+      'Predictive Analytics & Forecasting',
+      'Computer Vision & Image Recognition',
+      'Custom AI Model Development'
+    ],
+    deliverables: [
+      'AI-Powered Chatbot or Assistant',
+      'Automated Workflow Systems',
+      'API Integration & Data Sync',
+      'Custom AI Models & Algorithms',
+      'Analytics & Reporting Dashboard',
+      'Process Automation Documentation',
+      'Training Materials & Support',
+      'Performance Monitoring Setup'
+    ],
+    process: [
+      {
+        title: 'Process Analysis & Planning',
+        description: 'Analyze current workflows and identify automation opportunities and AI integration points.',
+        duration: '3-5 days',
+        icon: Search
+      },
+      {
+        title: 'AI Model Development',
+        description: 'Develop and train custom AI models or configure existing AI services for your needs.',
+        duration: '2-4 weeks',
+        icon: Cpu
+      },
+      {
+        title: 'Integration & Automation',
+        description: 'Build automation workflows and integrate AI capabilities with existing systems.',
+        duration: '2-3 weeks',
+        icon: Settings
+      },
+      {
+        title: 'Testing & Optimization',
+        description: 'Test AI accuracy, optimize performance, and fine-tune automation workflows.',
+        duration: '1 week',
+        icon: TestTube
+      },
+      {
+        title: 'Deployment & Training',
+        description: 'Deploy solutions, provide team training, and set up monitoring systems.',
+        duration: '3-5 days',
+        icon: Rocket
+      }
+    ],
+    pricing: {
+      starter: 7999,
+      professional: 19999,
+      enterprise: 'Custom'
+    },
+    deliveryTime: '6-12 weeks',
+    investmentRange: '$8K - $45K',
+    targetClients: [
+      'Businesses with repetitive manual processes',
+      'Customer service teams needing chatbots',
+      'Companies requiring data analysis automation',
+      'Enterprises seeking workflow optimization'
+    ],
+    caseStudyLink: '/case-studies/customer-service-ai',
+    demoLink: '/demo/ai-chatbot',
+    techStack: ['Python', 'OpenAI GPT', 'TensorFlow', 'Zapier', 'Node.js', 'AWS Lambda'],
+    color: 'from-red-500 to-pink-500',
+    gradient: 'bg-gradient-to-br from-red-500/20 to-pink-500/20'
+  },
+  {
+    id: 'devops-cloud-engineering',
+    title: 'DevOps & Cloud Engineering',
+    subtitle: 'Infrastructure & Deployment',
+    description: 'Complete cloud infrastructure setup, CI/CD pipelines, monitoring, and scalable deployment solutions.',
+    elevatorPitch: 'Scale your applications reliably with modern DevOps practices, automated deployments, and cloud-native infrastructure.',
+    icon: Cloud,
+    features: [
+      'AWS/GCP/Azure Cloud Architecture',
+      'CI/CD Pipeline Setup & Automation',
+      'Containerization (Docker & Kubernetes)',
+      'Infrastructure as Code (Terraform)',
+      'Monitoring, Logging & Alerting',
+      'Auto-scaling & Load Balancing',
+      'Security & Backup Solutions'
+    ],
+    deliverables: [
+      'Cloud Infrastructure Setup',
+      'Automated CI/CD Pipelines',
+      'Container Orchestration',
+      'Monitoring & Alerting Systems',
+      'Security Configuration',
+      'Backup & Disaster Recovery',
+      'Infrastructure Documentation',
+      'Team Training & Handover'
+    ],
+    process: [
+      {
+        title: 'Infrastructure Assessment',
+        description: 'Analyze current infrastructure and define cloud migration or optimization strategy.',
+        duration: '2-3 days',
+        icon: Search
+      },
+      {
+        title: 'Cloud Setup & Migration',
+        description: 'Set up cloud infrastructure, configure services, and migrate applications if needed.',
+        duration: '1-2 weeks',
+        icon: Cloud
+      },
+      {
+        title: 'CI/CD Implementation',
+        description: 'Build automated deployment pipelines and integrate with development workflows.',
+        duration: '1 week',
+        icon: Settings
+      },
+      {
+        title: 'Monitoring & Security',
+        description: 'Configure monitoring, logging, security measures, and backup solutions.',
+        duration: '3-5 days',
+        icon: Shield
+      },
+      {
+        title: 'Optimization & Handover',
+        description: 'Optimize performance, provide documentation, and train the team.',
+        duration: '2-3 days',
+        icon: BookOpen
+      }
     ],
     pricing: {
       starter: 4999,
       professional: 12999,
       enterprise: 'Custom'
     },
-    deliveryTime: '3-12 weeks',
-    techStack: ['React Native', 'Swift', 'Kotlin', 'Firebase', 'Expo'],
-    color: 'from-purple-500 to-pink-500',
-    gradient: 'bg-gradient-to-br from-purple-500/20 to-pink-500/20'
+    deliveryTime: '3-8 weeks',
+    investmentRange: '$5K - $30K',
+    targetClients: [
+      'Startups scaling their infrastructure',
+      'Companies moving to the cloud',
+      'Development teams needing automation',
+      'Enterprises modernizing DevOps practices'
+    ],
+    caseStudyLink: '/case-studies/scalable-infrastructure',
+    techStack: ['AWS/GCP/Azure', 'Docker', 'Kubernetes', 'Terraform', 'GitHub Actions', 'Datadog'],
+    color: 'from-cyan-500 to-blue-500',
+    gradient: 'bg-gradient-to-br from-cyan-500/20 to-blue-500/20'
   },
   {
-    id: 'api-development',
-    title: 'API Development',
-    subtitle: 'Scalable Backend Solutions',
-    description: 'Robust and scalable API development with microservices architecture, real-time capabilities, and comprehensive documentation.',
-    icon: Database,
+    id: 'ongoing-support-growth',
+    title: 'Ongoing Product Support & Growth',
+    subtitle: 'Continuous Development',
+    description: 'Ongoing maintenance, feature development, performance optimization, and growth support for your digital products.',
+    elevatorPitch: 'Keep your product competitive and growing with continuous improvements, new features, and dedicated technical support.',
+    icon: Headphones,
     features: [
-      'RESTful & GraphQL API Development',
-      'Microservices Architecture Design',
-      'Real-time Data Synchronization',
-      'API Security & Authentication',
-      'Auto-generated Documentation',
-      'Load Testing & Performance Optimization'
+      '24/7 Technical Support & Monitoring',
+      'Feature Development & Enhancements',
+      'Performance Optimization & Scaling',
+      'Security Updates & Maintenance',
+      'User Analytics & Growth Insights',
+      'Bug Fixes & Emergency Response',
+      'Technology Stack Upgrades'
+    ],
+    deliverables: [
+      'Monthly Feature Releases',
+      'Performance Reports & Analytics',
+      'Security Audits & Updates',
+      'Bug Fix & Maintenance Log',
+      'Growth Strategy Recommendations',
+      'Technical Documentation Updates',
+      'Priority Support Response',
+      'Quarterly Business Reviews'
+    ],
+    process: [
+      {
+        title: 'Product Assessment',
+        description: 'Evaluate current product state, identify improvement opportunities and growth potential.',
+        duration: '1 week',
+        icon: Search
+      },
+      {
+        title: 'Support Setup',
+        description: 'Establish monitoring, support channels, and maintenance procedures.',
+        duration: '3-5 days',
+        icon: Settings
+      },
+      {
+        title: 'Ongoing Development',
+        description: 'Continuous feature development, improvements, and optimization based on user feedback.',
+        duration: 'Ongoing',
+        icon: Cog
+      },
+      {
+        title: 'Growth Analysis',
+        description: 'Regular analysis of user behavior, performance metrics, and growth opportunities.',
+        duration: 'Monthly',
+        icon: BarChart3
+      },
+      {
+        title: 'Strategic Planning',
+        description: 'Quarterly reviews and strategic planning for product evolution and growth.',
+        duration: 'Quarterly',
+        icon: Target
+      }
     ],
     pricing: {
-      starter: 3999,
-      professional: 9999,
+      starter: 2999,
+      professional: 7999,
       enterprise: 'Custom'
     },
-    deliveryTime: '3-10 weeks',
-    techStack: ['Node.js', 'GraphQL', 'PostgreSQL', 'Redis', 'Docker'],
-    color: 'from-green-500 to-emerald-500',
-    gradient: 'bg-gradient-to-br from-green-500/20 to-emerald-500/20'
-  },
-  {
-    id: 'cloud-deployment',
-    title: 'Cloud & DevOps',
-    subtitle: 'Deployment & Infrastructure',
-    description: 'Complete cloud deployment solutions with CI/CD pipelines, monitoring, scaling, and infrastructure management for modern applications.',
-    icon: Cloud,
-    features: [
-      'AWS/GCP/Azure Cloud Setup',
-      'CI/CD Pipeline Configuration',
-      'Containerization with Docker & Kubernetes',
-      'Auto-scaling & Load Balancing',
-      'Monitoring & Logging Solutions',
-      'Backup & Disaster Recovery'
+    deliveryTime: 'Ongoing Partnership',
+    investmentRange: '$3K - $15K/month',
+    targetClients: [
+      'Growing startups needing technical support',
+      'Established businesses with digital products',
+      'Companies without in-house tech teams',
+      'SaaS businesses requiring continuous development'
     ],
-    pricing: {
-      starter: 1999,
-      professional: 5999,
-      enterprise: 'Custom'
-    },
-    deliveryTime: '1-6 weeks',
-    techStack: ['AWS', 'Docker', 'Kubernetes', 'Terraform', 'GitHub Actions'],
-    color: 'from-indigo-500 to-blue-600',
-    gradient: 'bg-gradient-to-br from-indigo-500/20 to-blue-600/20'
-  },
-  {
-    id: 'ui-ux-design',
-    title: 'UI/UX Design',
-    subtitle: 'User Experience Design',
-    description: 'Comprehensive design solutions from user research to interactive prototypes, ensuring exceptional user experiences across all platforms.',
-    icon: Palette,
-    features: [
-      'User Research & Persona Development',
-      'Wireframing & Interactive Prototyping',
-      'Visual Design & Brand Identity',
-      'Usability Testing & Optimization',
-      'Design System Creation',
-      'Accessibility & Inclusive Design'
-    ],
-    pricing: {
-      starter: 2499,
-      professional: 6999,
-      enterprise: 'Custom'
-    },
-    deliveryTime: '2-8 weeks',
-    techStack: ['Figma', 'Adobe XD', 'Principle', 'Framer', 'InVision'],
+    caseStudyLink: '/case-studies/growth-partnership',
+    techStack: ['Full Stack Support', 'Analytics Tools', 'Monitoring Solutions', 'CI/CD', 'Cloud Services'],
     color: 'from-yellow-500 to-orange-500',
     gradient: 'bg-gradient-to-br from-yellow-500/20 to-orange-500/20'
-  },
-  {
-    id: 'ai-ml-solutions',
-    title: 'AI/ML Solutions',
-    subtitle: 'Artificial Intelligence Integration',
-    description: 'Custom AI and machine learning solutions including chatbots, recommendation systems, predictive analytics, and automation tools.',
-    icon: Zap,
-    features: [
-      'Custom AI Model Development',
-      'Natural Language Processing (NLP)',
-      'Computer Vision & Image Recognition',
-      'Predictive Analytics & Forecasting',
-      'Chatbot & Virtual Assistant Development',
-      'AI Integration & Deployment'
-    ],
-    pricing: {
-      starter: 5999,
-      professional: 15999,
-      enterprise: 'Custom'
-    },
-    deliveryTime: '4-16 weeks',
-    techStack: ['Python', 'TensorFlow', 'PyTorch', 'OpenAI', 'Hugging Face'],
-    color: 'from-red-500 to-pink-500',
-    gradient: 'bg-gradient-to-br from-red-500/20 to-pink-500/20'
   }
 ]
 
@@ -301,7 +782,7 @@ export function Services() {
                   <Code2 className="w-8 h-8 text-primary" />
                 </div>
                 <div className="text-4xl font-bold text-primary mb-2">
-                  <CounterAnimation end={6} suffix="" />
+                  <CounterAnimation end={8} suffix="" />
                 </div>
                 <div className="text-sm text-muted-foreground">Core Services</div>
               </div>
@@ -352,7 +833,7 @@ export function Services() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
             {services.map((service, index) => (
               <ServiceCard
                 key={service.id}
@@ -470,64 +951,133 @@ function ServiceCard({ service, index, isSelected, isHovered, onSelect, onHover 
       className="group relative"
     >
       <GlowCard className={cn(
-        "h-full p-8 cursor-pointer transition-all duration-300",
-        isSelected && "ring-2 ring-primary"
+        "h-full p-6 lg:p-8 cursor-pointer transition-all duration-300 hover:shadow-2xl",
+        isSelected && "ring-2 ring-primary shadow-2xl scale-105"
       )}>
         {/* Service Header */}
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex items-start gap-4 mb-6">
           <div className={cn(
-            "p-3 rounded-2xl bg-gradient-to-br shadow-lg transition-all duration-300",
+            "p-3 rounded-2xl bg-gradient-to-br shadow-lg transition-all duration-300 flex-shrink-0",
             service.color,
             isHovered && "scale-110 shadow-xl"
           )}>
-            <service.icon className="w-8 h-8 text-white" />
+            <service.icon className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
           </div>
-          <div>
-            <h3 className="text-2xl font-bold mb-1">{service.title}</h3>
-            <p className="text-muted-foreground">{service.subtitle}</p>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-xl lg:text-2xl font-bold mb-2 line-clamp-2">{service.title}</h3>
+            <p className="text-muted-foreground text-sm lg:text-base mb-2">{service.subtitle}</p>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <Calendar className="w-3 h-3" />
+              <span>{service.deliveryTime}</span>
+              <span>•</span>
+              <span>{service.investmentRange}</span>
+            </div>
           </div>
         </div>
 
-        {/* Description */}
-        <p className="text-muted-foreground mb-6 leading-relaxed">
-          {service.description}
-        </p>
+        {/* Elevator Pitch */}
+        <div className="mb-6 p-4 bg-gradient-to-r from-primary/5 to-accent/5 rounded-lg border-l-4 border-primary/30">
+          <p className="text-sm lg:text-base font-medium text-foreground leading-relaxed">
+            {service.elevatorPitch}
+          </p>
+        </div>
 
         {/* Key Features */}
         <div className="mb-6">
-          <h4 className="font-semibold mb-3 text-sm uppercase tracking-wider">Key Features</h4>
+          <h4 className="font-semibold mb-3 text-sm uppercase tracking-wider flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 text-green-500" />
+            What's Included
+          </h4>
           <ul className="space-y-2">
             {service.features.slice(0, 4).map((feature) => (
-              <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
-                <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                {feature}
+              <li key={feature} className="flex items-start gap-2 text-sm text-muted-foreground">
+                <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                <span className="line-clamp-2">{feature}</span>
               </li>
             ))}
           </ul>
+          {service.features.length > 4 && (
+            <p className="text-xs text-muted-foreground mt-2">
+              +{service.features.length - 4} more features
+            </p>
+          )}
+        </div>
+
+        {/* Target Clients */}
+        <div className="mb-6">
+          <h4 className="font-semibold mb-3 text-sm uppercase tracking-wider flex items-center gap-2">
+            <Target className="w-4 h-4 text-primary" />
+            Perfect For
+          </h4>
+          <div className="flex flex-wrap gap-2">
+            {service.targetClients.slice(0, 2).map((client) => (
+              <span
+                key={client}
+                className="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium line-clamp-1"
+              >
+                {client}
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* Pricing Preview */}
         <div className="mb-6 p-4 bg-muted/50 rounded-lg">
-          <div className="text-sm text-muted-foreground mb-1">Starting from</div>
-          <div className="text-2xl font-bold text-primary">
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-sm text-muted-foreground">Starting from</div>
+            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+              <Star className="w-3 h-3 text-yellow-500" />
+              <span>Most Popular</span>
+            </div>
+          </div>
+          <div className="text-xl lg:text-2xl font-bold text-primary">
             ${service.pricing.starter.toLocaleString()}
           </div>
           <div className="text-xs text-muted-foreground mt-1">
-            Delivery: {service.deliveryTime}
+            Professional: ${service.pricing.professional.toLocaleString()}
           </div>
         </div>
 
-        {/* Action Button */}
-        <Button 
-          className="w-full group"
-          onClick={() => onSelect(isSelected ? null : service.id)}
-        >
-          {isSelected ? 'Hide Details' : 'Learn More'}
-          <ArrowRight className={cn(
-            "ml-2 w-4 h-4 transition-transform",
-            isSelected && "rotate-90"
-          )} />
-        </Button>
+        {/* Action Buttons */}
+        <div className="space-y-3">
+          <Button 
+            className="w-full group"
+            onClick={() => onSelect(isSelected ? null : service.id)}
+          >
+            {isSelected ? 'Hide Details' : 'View Full Details'}
+            <ArrowRight className={cn(
+              "ml-2 w-4 h-4 transition-transform",
+              isSelected && "rotate-90"
+            )} />
+          </Button>
+          
+          <div className="grid grid-cols-2 gap-2">
+            {service.demoLink && (
+              <Button size="sm" variant="outline" className="text-xs" asChild>
+                <a href={service.demoLink} target="_blank" rel="noopener noreferrer">
+                  <Monitor className="w-3 h-3 mr-1" />
+                  Demo
+                </a>
+              </Button>
+            )}
+            {service.caseStudyLink && (
+              <Button size="sm" variant="outline" className="text-xs" asChild>
+                <a href={service.caseStudyLink}>
+                  <BookOpen className="w-3 h-3 mr-1" />
+                  Case Study
+                </a>
+              </Button>
+            )}
+            {!service.demoLink && !service.caseStudyLink && (
+              <Button size="sm" variant="outline" className="col-span-2 text-xs" asChild>
+                <a href="/contact">
+                  <MessageSquare className="w-3 h-3 mr-1" />
+                  Start a Project
+                </a>
+              </Button>
+            )}
+          </div>
+        </div>
 
         {/* Micro Demo */}
         <MicroDemo
@@ -546,23 +1096,70 @@ function ServiceCard({ service, index, isSelected, isHovered, onSelect, onHover 
           className="overflow-hidden"
         >
           {isSelected && (
-            <div className="pt-6 mt-6 border-t border-border">
+            <div className="pt-6 mt-6 border-t border-border space-y-6">
+              {/* Process Steps */}
+              <div>
+                <h4 className="font-semibold mb-4 flex items-center gap-2">
+                  <Cog className="w-4 h-4 text-primary" />
+                  Our Process ({service.process.length} Steps)
+                </h4>
+                <div className="space-y-4">
+                  {service.process.map((step, idx) => (
+                    <div key={step.title} className="flex gap-3">
+                      <div className="flex-shrink-0 w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                        <step.icon className="w-4 h-4 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h5 className="font-medium text-sm">{step.title}</h5>
+                          <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded">
+                            {step.duration}
+                          </span>
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">
+                          {step.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Deliverables */}
+              <div>
+                <h4 className="font-semibold mb-3 flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  What You'll Receive
+                </h4>
+                <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2 text-sm">
+                  {service.deliverables.map((deliverable) => (
+                    <li key={deliverable} className="flex items-start gap-2 text-muted-foreground">
+                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span>{deliverable}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               {/* All Features */}
-              <div className="mb-6">
+              <div>
                 <h4 className="font-semibold mb-3">Complete Feature List</h4>
-                <ul className="grid grid-cols-1 gap-2 text-sm">
+                <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2 text-sm">
                   {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-muted-foreground">
-                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                      {feature}
+                    <li key={feature} className="flex items-start gap-2 text-muted-foreground">
+                      <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                      <span>{feature}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* Tech Stack */}
-              <div className="mb-6">
-                <h4 className="font-semibold mb-3">Technologies Used</h4>
+              <div>
+                <h4 className="font-semibold mb-3 flex items-center gap-2">
+                  <Code2 className="w-4 h-4 text-primary" />
+                  Technologies Used
+                </h4>
                 <div className="flex flex-wrap gap-2">
                   {service.techStack.map((tech) => (
                     <span
@@ -575,22 +1172,68 @@ function ServiceCard({ service, index, isSelected, isHovered, onSelect, onHover 
                 </div>
               </div>
 
+              {/* Target Clients Expanded */}
+              <div>
+                <h4 className="font-semibold mb-3 flex items-center gap-2">
+                  <Users className="w-4 h-4 text-primary" />
+                  Ideal For These Clients
+                </h4>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+                  {service.targetClients.map((client) => (
+                    <div key={client} className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Target className="w-3 h-3 text-primary flex-shrink-0" />
+                      <span>{client}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* Pricing Breakdown */}
-              <div className="mb-6">
-                <h4 className="font-semibold mb-3">Pricing Options</h4>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span>Starter Package:</span>
-                    <span className="font-semibold">${service.pricing.starter.toLocaleString()}</span>
+              <div>
+                <h4 className="font-semibold mb-3 flex items-center gap-2">
+                  <Briefcase className="w-4 h-4 text-primary" />
+                  Investment Options
+                </h4>
+                <div className="space-y-3">
+                  <div className="p-3 bg-muted/50 rounded-lg">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="font-medium">Starter Package</span>
+                      <span className="font-bold text-primary">${service.pricing.starter.toLocaleString()}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">Perfect for small projects and MVPs</p>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Professional Package:</span>
-                    <span className="font-semibold">${service.pricing.professional.toLocaleString()}</span>
+                  <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="font-medium">Professional Package</span>
+                      <span className="font-bold text-primary">${service.pricing.professional.toLocaleString()}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">Comprehensive solution with advanced features</p>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Enterprise Package:</span>
-                    <span className="font-semibold">{service.pricing.enterprise}</span>
+                  <div className="p-3 bg-muted/50 rounded-lg">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="font-medium">Enterprise Package</span>
+                      <span className="font-bold text-primary">{service.pricing.enterprise}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">Tailored solutions for large-scale projects</p>
                   </div>
+                </div>
+              </div>
+
+              {/* CTA Section */}
+              <div className="pt-4 border-t border-border">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Button className="flex-1" asChild>
+                    <a href="/contact">
+                      <MessageSquare className="w-4 h-4 mr-2" />
+                      Start a Project
+                    </a>
+                  </Button>
+                  <Button variant="outline" className="flex-1" asChild>
+                    <a href="/contact">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      Book a Call
+                    </a>
+                  </Button>
                 </div>
               </div>
             </div>
