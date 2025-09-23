@@ -34,6 +34,8 @@ import { Button } from '@/components/ui/Button'
 import { GlowCard } from '@/components/ui/GlowCard'
 import { CounterAnimation } from '@/components/ui/CounterAnimation'
 import { MicroDemo } from '@/components/ui/MicroDemo'
+import PaymentIntegration from '@/components/integrations/PaymentIntegration'
+import AuthIntegration from '@/components/integrations/AuthIntegration'
 import { cn } from '@/lib/utils'
 
 interface Service {
@@ -992,6 +994,108 @@ export function Services() {
               </Button>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Partner Integrations Section */}
+      <section className="py-20 bg-muted/20">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              Partner{' '}
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Integrations
+              </span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Seamlessly integrate with industry-leading payment and authentication providers.
+              We handle the complex setup so you can focus on your business.
+            </p>
+          </div>
+
+          {/* Integration Tabs */}
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* Payment Integration */}
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                    <CreditCard className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Payment Solutions</h3>
+                    <p className="text-gray-600 dark:text-gray-400">Secure payment processing</p>
+                  </div>
+                </div>
+                <PaymentIntegration showDemo={true} />
+              </div>
+
+              {/* Authentication Integration */}
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                    <Shield className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Authentication & Security</h3>
+                    <p className="text-gray-600 dark:text-gray-400">User management made simple</p>
+                  </div>
+                </div>
+                <AuthIntegration showDemo={true} />
+              </div>
+            </div>
+          </div>
+
+          {/* Integration Benefits */}
+          <div className="mt-16 p-8 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                Why Choose Our Integration Services?
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                We make complex integrations simple and secure
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <Shield className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Security First</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Industry-standard security practices and compliance
+                </p>
+              </div>
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <Zap className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Quick Setup</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Rapid integration with comprehensive testing
+                </p>
+              </div>
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <Settings className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Custom Configuration</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Tailored to your specific business requirements
+                </p>
+              </div>
+              <div className="text-center p-4">
+                <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <Headphones className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Ongoing Support</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Continuous monitoring and maintenance
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>

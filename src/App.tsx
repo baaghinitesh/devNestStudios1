@@ -5,6 +5,8 @@ import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { ScrollToTop } from '@/components/ui/ScrollToTop'
+import AIQuickAssistant from '@/components/ui/AIQuickAssistant'
+import GamifiedRewards from '@/components/ui/GamifiedRewards'
 
 // Direct imports for better performance
 import Home from '@/pages/Home'
@@ -46,6 +48,8 @@ function App() {
 
           <Footer />
           <ScrollToTop />
+          <AIQuickAssistant />
+          <GamifiedRewards />
         </div>
       </Router>
     </ThemeProvider>

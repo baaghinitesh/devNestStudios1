@@ -20,6 +20,7 @@ import {
 import { Button } from '@/components/ui/Button';
 import { GlowCard } from '@/components/ui/GlowCard';
 import { FloatingElements } from '@/components/ui/FloatingElements';
+import NewsletterGatedResource from '@/components/ui/NewsletterGatedResource';
 
 interface FormData {
   // Step 1: Basic Info
@@ -661,6 +662,17 @@ export default function Contact() {
               </GlowCard>
             </motion.div>
           </div>
+        </div>
+        
+        {/* Newsletter Lead Magnet Section */}
+        <div className="mt-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
+            <NewsletterGatedResource showInline={true} />
+          </motion.div>
         </div>
       </div>
     </div>
