@@ -268,72 +268,162 @@ const timeline: TimelineEvent[] = [
   }
 ];
 
+// Helper function to get examples for each value
+const getValueExample = (valueId: string): string => {
+  const examples = {
+    '1': 'We pioneered AI-driven solutions that increased client efficiency by 300%',
+    '2': 'Our 98% client retention rate speaks to our commitment to your success',
+    '3': 'Zero security breaches in 4+ years with enterprise-grade protection',
+    '4': 'Weekly updates and real-time collaboration keep you always informed',
+    '5': 'Our team completes 40+ hours of learning monthly to stay cutting-edge',
+    '6': 'Every project delivers measurable ROI and transformative business value'
+  };
+  return examples[valueId as keyof typeof examples] || '';
+};
+
 const ValuesWheel: React.FC = () => {
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [rotation, setRotation] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   useEffect(() => {
     const interval = setInterval(() => {
-      setRotation(prev => prev + 0.5);
+      setRotation(prev => prev + 0.2);
     }, 50);
     
     return () => clearInterval(interval);
   }, []);
 
+  const handleValueClick = (valueId: string) => {
+    if (selectedValue === valueId) {
+      setSelectedValue(null);
+      setIsModalOpen(false);
+    } else {
+      setSelectedValue(valueId);
+      setIsModalOpen(true);
+    }
+  };
+
+  const selectedValueData = companyValues.find(v => v.id === selectedValue);
+
   return (
-    <div className="relative w-80 h-80 mx-auto">
-      {/* Central Hub */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-20 h-20 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center shadow-2xl">
-          <Zap className="w-8 h-8 text-white" />
-        </div>
-      </div>
-      
-      {/* Values positioned in circle */}
-      {companyValues.map((value, index) => {
-        const angle = (index * 60) - 90; // 360/6 = 60 degrees apart
-        const radian = (angle * Math.PI) / 180;
-        const radius = 130;
-        const x = Math.cos(radian) * radius;
-        const y = Math.sin(radian) * radius;
-        
-        return (
-          <motion.div
-            key={value.id}
-            className="absolute w-16 h-16 cursor-pointer"
-            style={{
-              left: `calc(50% + ${x}px - 32px)`,
-              top: `calc(50% + ${y}px - 32px)`,
-            }}
-            animate={{
-              rotate: rotation + (selectedValue === value.id ? 360 : 0),
-            }}
-            whileHover={{ scale: 1.2 }}
-            onClick={() => setSelectedValue(selectedValue === value.id ? null : value.id)}
+    <div className="relative">
+      <div className="relative w-96 h-96 mx-auto">
+        {/* Central Hub with glow */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <motion.div 
+            className="relative"
+            animate={{ rotate: rotation }}
           >
-            <div className={`w-full h-full bg-gradient-to-r ${value.color} rounded-full flex items-center justify-center text-white shadow-lg border-2 border-white/20`}>
-              {value.icon}
+            {/* Glow effect */}
+            <div className="absolute inset-0 w-24 h-24 bg-gradient-to-r from-primary to-accent rounded-full blur-lg opacity-50 animate-pulse" />
+            
+            {/* Main hub */}
+            <div className="relative w-20 h-20 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center shadow-2xl border-4 border-white/20">
+              <Zap className="w-8 h-8 text-white" />
             </div>
           </motion.div>
-        );
-      })}
+        </div>
       
-      {/* Selected Value Detail */}
-      {selectedValue && (
+        {/* Values positioned in circle */}
+        {companyValues.map((value, index) => {
+          const angle = (index * 60) - 90; // 360/6 = 60 degrees apart
+          const radian = (angle * Math.PI) / 180;
+          const radius = 150;
+          const x = Math.cos(radian) * radius;
+          const y = Math.sin(radian) * radius;
+          
+          const isSelected = selectedValue === value.id;
+          
+          return (
+            <motion.div
+              key={value.id}
+              className="absolute w-16 h-16 cursor-pointer"
+              style={{
+                left: `calc(50% + ${x}px - 32px)`,
+                top: `calc(50% + ${y}px - 32px)`,
+              }}
+              animate={{
+                rotate: rotation * (isSelected ? -2 : 1),
+                scale: isSelected ? 1.3 : 1,
+              }}
+              whileHover={{ 
+                scale: isSelected ? 1.4 : 1.2,
+                rotate: rotation + (isSelected ? 180 : 45)
+              }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => handleValueClick(value.id)}
+            >
+              <div className="relative">
+                {/* Outer glow for selected */}
+                {isSelected && (
+                  <div className={`absolute inset-0 bg-gradient-to-r ${value.color} rounded-full blur-md opacity-60 scale-125 animate-pulse`} />
+                )}
+                
+                {/* Main value circle */}
+                <div className={`relative w-16 h-16 bg-gradient-to-r ${value.color} rounded-full flex items-center justify-center text-white shadow-xl border-4 ${isSelected ? 'border-white' : 'border-white/20'} transition-all duration-300`}>
+                  {React.cloneElement(value.icon as React.ReactElement, {
+                    className: 'w-8 h-8 transition-all duration-300'
+                  })}
+                </div>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+      
+      {/* Animated Modal for Selected Value */}
+      {isModalOpen && selectedValueData && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="absolute -bottom-20 left-0 right-0 text-center"
+          initial={{ opacity: 0, scale: 0.8, y: 50 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8, y: 50 }}
+          transition={{ 
+            type: "spring", 
+            stiffness: 300, 
+            damping: 25 
+          }}
+          className="mt-12"
         >
-          {(() => {
-            const value = companyValues.find(v => v.id === selectedValue);
-            return value ? (
-              <GlowCard className="p-6 max-w-sm mx-auto">
-                <h4 className="text-lg font-bold mb-2">{value.title}</h4>
-                <p className="text-sm text-muted-foreground">{value.description}</p>
-              </GlowCard>
-            ) : null;
-          })()}
+          <GlowCard className="p-8 max-w-md mx-auto relative overflow-hidden">
+            {/* Background gradient */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${selectedValueData.color} opacity-10`} />
+            
+            <div className="relative z-10">
+              {/* Header with icon */}
+              <div className="flex items-center gap-4 mb-6">
+                <div className={`w-16 h-16 bg-gradient-to-r ${selectedValueData.color} rounded-full flex items-center justify-center text-white shadow-lg`}>
+                  {React.cloneElement(selectedValueData.icon as React.ReactElement, {
+                    className: 'w-8 h-8'
+                  })}
+                </div>
+                <h3 className="text-2xl font-bold">{selectedValueData.title}</h3>
+              </div>
+              
+              {/* Description */}
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                {selectedValueData.description}
+              </p>
+              
+              {/* Example/Impact statement */}
+              <div className={`p-4 rounded-lg bg-gradient-to-r ${selectedValueData.color} bg-opacity-10 border border-current/20`}>
+                <p className="text-sm font-medium">
+                  <span className="text-primary">Impact:</span> {getValueExample(selectedValueData.id)}
+                </p>
+              </div>
+              
+              {/* Close button */}
+              <button
+                onClick={() => {
+                  setSelectedValue(null);
+                  setIsModalOpen(false);
+                }}
+                className="absolute top-4 right-4 w-8 h-8 bg-muted/10 hover:bg-muted/20 rounded-full flex items-center justify-center transition-colors"
+              >
+                ×
+              </button>
+            </div>
+          </GlowCard>
         </motion.div>
       )}
     </div>
@@ -355,7 +445,7 @@ export default function About() {
     <div className="min-h-screen pt-16">
       <FloatingElements />
       
-      {/* Hero Section */}
+      {/* Hero Section with Mission/Vision/Tagline */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10" />
         <div className="container mx-auto px-4 relative z-10">
@@ -363,15 +453,67 @@ export default function About() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center max-w-4xl mx-auto"
+            className="text-center max-w-6xl mx-auto"
           >
             <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent mb-6">
               About DevNest
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-              We're a team of passionate developers, designers, and innovators dedicated to transforming ideas into extraordinary digital experiences.
-            </p>
-            <div className="flex items-center justify-center gap-8 text-sm">
+            
+            {/* Tagline */}
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-2xl md:text-3xl font-semibold text-accent mb-12"
+            >
+              "Nurturing Ideas, Delivering Excellence"
+            </motion.p>
+            
+            {/* Mission & Vision */}
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                <GlowCard className="p-8 h-full">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Target className="w-8 h-8 text-primary" />
+                    <h2 className="text-2xl font-bold">Our Mission</h2>
+                  </div>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    To empower businesses and individuals by transforming innovative ideas into 
+                    exceptional digital solutions that drive growth, enhance user experiences, 
+                    and create lasting impact in the digital landscape.
+                  </p>
+                </GlowCard>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                <GlowCard className="p-8 h-full">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Lightbulb className="w-8 h-8 text-accent" />
+                    <h2 className="text-2xl font-bold">Our Vision</h2>
+                  </div>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    To be the leading technology partner that bridges the gap between 
+                    imagination and reality, fostering a world where innovative digital 
+                    solutions enhance human potential and business success.
+                  </p>
+                </GlowCard>
+              </motion.div>
+            </div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="flex items-center justify-center gap-8 text-sm"
+            >
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-accent" />
                 <span>Global Team</span>
@@ -384,7 +526,7 @@ export default function About() {
                 <Coffee className="w-4 h-4 text-accent" />
                 <span>Fueled by Innovation</span>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -536,64 +678,200 @@ export default function About() {
         </div>
       </section>
 
-      {/* Company Timeline */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
+      {/* Our Journey - New Modern Design */}
+      <section className="py-20 relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-20 w-40 h-40 bg-accent/10 rounded-full blur-3xl animate-pulse delay-1000" />
+          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-secondary/10 rounded-full blur-2xl animate-pulse delay-500" />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Header Section */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            transition={{ duration: 0.8 }}
+            className="text-center mb-20"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Journey</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              From startup to industry leader - the milestones that shaped our story
+            <div className="inline-block mb-4">
+              <span className="px-6 py-2 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full text-sm font-medium border border-primary/20">
+                ✨ Our Story
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
+              Our Journey
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Every great story has its moments. Here are the milestones that transformed our vision into reality,
+              one breakthrough at a time.
             </p>
           </motion.div>
 
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-secondary transform md:-translate-x-1/2" />
-            
-            <div className="space-y-8">
-              {timeline.map((event, index) => (
+          {/* Interactive Journey Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            {timeline.map((event, index) => {
+              const isEven = index % 2 === 0;
+              const getEventIcon = (type: string) => {
+                switch (type) {
+                  case 'founding': return <Coffee className="w-6 h-6" />;
+                  case 'growth': return <TrendingUp className="w-6 h-6" />;
+                  case 'achievement': return <Award className="w-6 h-6" />;
+                  case 'expansion': return <Globe className="w-6 h-6" />;
+                  default: return <Zap className="w-6 h-6" />;
+                }
+              };
+              
+              const getEventColor = (type: string) => {
+                switch (type) {
+                  case 'founding': return 'from-emerald-500 to-green-600';
+                  case 'growth': return 'from-blue-500 to-cyan-600';
+                  case 'achievement': return 'from-yellow-500 to-orange-600';
+                  case 'expansion': return 'from-purple-500 to-indigo-600';
+                  default: return 'from-primary to-accent';
+                }
+              };
+
+              return (
                 <motion.div
                   key={event.id}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ 
+                    opacity: 0, 
+                    x: isEven ? -60 : 60,
+                    rotateY: isEven ? -20 : 20
+                  }}
+                  whileInView={{ 
+                    opacity: 1, 
+                    x: 0,
+                    rotateY: 0
+                  }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className={`relative ${
-                    index % 2 === 0 ? 'md:pr-1/2 md:text-right' : 'md:pl-1/2 md:ml-4'
-                  }`}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: index * 0.2,
+                    type: "spring",
+                    stiffness: 100
+                  }}
+                  whileHover={{
+                    scale: 1.05,
+                    rotateX: 5,
+                    transition: { duration: 0.3 }
+                  }}
+                  className="group cursor-pointer"
                 >
-                  {/* Timeline Dot */}
-                  <div className="absolute left-4 md:left-1/2 w-4 h-4 transform md:-translate-x-1/2 -translate-y-1">
-                    <div className={`w-full h-full rounded-full ${
-                      event.type === 'founding' ? 'bg-gradient-to-r from-green-400 to-emerald-500' :
-                      event.type === 'growth' ? 'bg-gradient-to-r from-blue-400 to-cyan-500' :
-                      event.type === 'achievement' ? 'bg-gradient-to-r from-yellow-400 to-orange-500' :
-                      'bg-gradient-to-r from-purple-400 to-indigo-500'
-                    } shadow-lg border-2 border-card`} />
-                  </div>
-                  
-                  <div className="ml-12 md:ml-0">
-                    <GlowCard className="p-6 max-w-md md:max-w-sm">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="text-2xl font-bold text-primary">{event.year}</span>
-                        <span className="px-2 py-1 bg-secondary/20 rounded-full text-xs font-medium">
-                          {event.milestone}
-                        </span>
+                  <GlowCard className="p-8 h-full relative overflow-hidden border-0 bg-gradient-to-br from-white/5 to-white/1 backdrop-blur-sm">
+                    {/* Card Background Pattern */}
+                    <div className="absolute inset-0 opacity-10">
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent" />
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-full" />
+                    </div>
+                    
+                    {/* Floating Year Badge */}
+                    <motion.div 
+                      className="absolute -top-4 -right-4"
+                      animate={{
+                        rotate: [0, 10, 0],
+                        scale: [1, 1.1, 1]
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        repeatType: "reverse"
+                      }}
+                    >
+                      <div className={`w-20 h-20 bg-gradient-to-r ${getEventColor(event.type)} rounded-full flex items-center justify-center text-white font-bold text-lg shadow-2xl border-4 border-white/20`}>
+                        {event.year}
                       </div>
-                      <h3 className="text-lg font-bold mb-2">{event.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{event.description}</p>
-                    </GlowCard>
-                  </div>
+                    </motion.div>
+                    
+                    {/* Content */}
+                    <div className="relative z-10">
+                      {/* Icon and Type */}
+                      <div className="flex items-center gap-4 mb-6">
+                        <motion.div 
+                          className={`p-3 bg-gradient-to-r ${getEventColor(event.type)} rounded-xl text-white shadow-lg`}
+                          whileHover={{ 
+                            rotate: 360,
+                            scale: 1.2
+                          }}
+                          transition={{ duration: 0.6 }}
+                        >
+                          {getEventIcon(event.type)}
+                        </motion.div>
+                        <div>
+                          <span className="text-xs uppercase tracking-wider font-bold text-muted-foreground">
+                            {event.type.replace('_', ' ')}
+                          </span>
+                          <div className="text-sm font-medium text-primary mt-1">
+                            {event.milestone}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Title */}
+                      <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">
+                        {event.title}
+                      </h3>
+                      
+                      {/* Description */}
+                      <p className="text-muted-foreground leading-relaxed mb-6">
+                        {event.description}
+                      </p>
+                      
+                      {/* Interactive Element */}
+                      <motion.div 
+                        className="flex items-center text-sm font-medium text-primary group-hover:gap-3 gap-2 transition-all duration-300"
+                        whileHover={{ x: 5 }}
+                      >
+                        <span>Learn more</span>
+                        <motion.div
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ 
+                            duration: 1.5, 
+                            repeat: Infinity, 
+                            repeatType: "reverse" 
+                          }}
+                        >
+                          →
+                        </motion.div>
+                      </motion.div>
+                    </div>
+                    
+                    {/* Hover Effect Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </GlowCard>
                 </motion.div>
-              ))}
-            </div>
+              );
+            })}
           </div>
+          
+          {/* Journey Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-center"
+          >
+            <div className="inline-flex items-center gap-8 p-6 bg-gradient-to-r from-white/10 to-white/5 rounded-2xl backdrop-blur-sm border border-white/10">
+              <div className="text-center">
+                <CounterAnimation end={4} className="text-3xl font-bold text-primary" />+
+                <div className="text-sm text-muted-foreground mt-1">Years Strong</div>
+              </div>
+              <div className="w-px h-12 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+              <div className="text-center">
+                <CounterAnimation end={150} className="text-3xl font-bold text-accent" />+
+                <div className="text-sm text-muted-foreground mt-1">Projects Delivered</div>
+              </div>
+              <div className="w-px h-12 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+              <div className="text-center">
+                <CounterAnimation end={15} className="text-3xl font-bold text-secondary" />+
+                <div className="text-sm text-muted-foreground mt-1">Countries Served</div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 

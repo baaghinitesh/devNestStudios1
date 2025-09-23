@@ -872,22 +872,93 @@ export function Services() {
         </div>
       </section>
 
-      {/* Process Section */}
-      <section className="py-20">
+      {/* Process Section - Enhanced */}
+      <section className="py-20 bg-gradient-to-br from-muted/30 via-background to-muted/20">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Our{' '}
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Process
-              </span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              A proven methodology that ensures successful project delivery from concept to launch.
-            </p>
+          {/* Enhanced Section Header */}
+          <div className="text-center mb-20">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl md:text-6xl font-bold mb-6">
+                Our Development{' '}
+                <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                  Journey
+                </span>
+              </h2>
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-8 leading-relaxed">
+                A proven methodology that ensures successful project delivery from concept to launch. 
+                Every step is designed to maximize value and minimize risk.
+              </p>
+              
+              {/* Process Stats */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto mt-12">
+                <div className="text-center p-4">
+                  <div className="text-3xl font-bold text-primary mb-1">
+                    <CounterAnimation end={98} suffix="%" />
+                  </div>
+                  <div className="text-sm text-muted-foreground">On-time Delivery</div>
+                </div>
+                <div className="text-center p-4">
+                  <div className="text-3xl font-bold text-primary mb-1">
+                    <CounterAnimation end={5} suffix=" Steps" />
+                  </div>
+                  <div className="text-sm text-muted-foreground">Proven Process</div>
+                </div>
+                <div className="text-center p-4">
+                  <div className="text-3xl font-bold text-primary mb-1">
+                    <CounterAnimation end={150} suffix="+" />
+                  </div>
+                  <div className="text-sm text-muted-foreground">Projects Delivered</div>
+                </div>
+              </div>
+            </motion.div>
           </div>
 
           <ProcessTimeline />
+          
+          {/* Process Summary */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mt-20 text-center"
+          >
+            <div className="max-w-4xl mx-auto">
+              <GlowCard className="p-8 md:p-12">
+                <h3 className="text-2xl md:text-3xl font-bold mb-6">
+                  Why Our Process Works
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                  <div className="flex gap-3">
+                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-semibold mb-1">Transparent Communication</h4>
+                      <p className="text-sm text-muted-foreground">Regular updates and clear milestone tracking</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-semibold mb-1">Agile Methodology</h4>
+                      <p className="text-sm text-muted-foreground">Flexible approach that adapts to your needs</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-semibold mb-1">Quality Assurance</h4>
+                      <p className="text-sm text-muted-foreground">Comprehensive testing at every stage</p>
+                    </div>
+                  </div>
+                </div>
+              </GlowCard>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -1309,80 +1380,151 @@ function ProcessTimeline() {
       title: 'Discovery & Planning',
       description: 'We understand your requirements, goals, and technical needs through detailed consultation.',
       icon: Search,
-      duration: '1-2 weeks'
+      duration: '1-2 weeks',
+      details: 'Requirements analysis, stakeholder interviews, technical feasibility assessment, and project scope definition.'
     },
     {
       title: 'Design & Architecture',
       description: 'Creating wireframes, mockups, and technical architecture for your solution.',
       icon: Palette,
-      duration: '1-3 weeks'
+      duration: '1-3 weeks',
+      details: 'User experience design, visual mockups, system architecture planning, and technology stack selection.'
     },
     {
       title: 'Development & Testing',
       description: 'Agile development with regular updates and comprehensive testing throughout.',
       icon: Code2,
-      duration: '2-12 weeks'
+      duration: '2-12 weeks',
+      details: 'Sprint-based development, continuous integration, automated testing, and regular client feedback cycles.'
     },
     {
       title: 'Deployment & Launch',
       description: 'Production deployment with performance optimization and launch support.',
       icon: Cloud,
-      duration: '1-2 weeks'
+      duration: '1-2 weeks',
+      details: 'Production setup, performance optimization, security configuration, and go-live support.'
     },
     {
       title: 'Support & Maintenance',
       description: 'Ongoing support, updates, and maintenance to keep your solution running smoothly.',
       icon: Headphones,
-      duration: 'Ongoing'
+      duration: 'Ongoing',
+      details: '24/7 monitoring, regular updates, bug fixes, and continuous improvement based on user feedback.'
     }
   ]
 
   return (
-    <div className="max-w-4xl mx-auto">
-      {steps.map((step, index) => (
-        <motion.div
-          key={step.title}
-          initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: index * 0.2 }}
-          viewport={{ once: true }}
-          className={cn(
-            "flex items-center gap-8 mb-12",
-            index % 2 === 1 && "flex-row-reverse"
-          )}
-        >
-          {/* Content */}
-          <div className="flex-1">
-            <GlowCard className="p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                  <step.icon className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold">{step.title}</h3>
-                  <span className="text-sm text-muted-foreground">{step.duration}</span>
-                </div>
+    <div className="max-w-6xl mx-auto">
+      {/* Mobile Layout */}
+      <div className="block lg:hidden space-y-8">
+        {steps.map((step, index) => (
+          <motion.div
+            key={step.title}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            {/* Mobile Step Card */}
+            <div className="relative">
+              {/* Step Number Badge */}
+              <div className="absolute -top-3 -left-3 w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white font-bold text-lg z-10 shadow-lg">
+                {index + 1}
               </div>
-              <p className="text-muted-foreground">{step.description}</p>
-            </GlowCard>
-          </div>
-
-          {/* Timeline Connector */}
-          <div className="relative">
-            <div className="w-4 h-4 bg-primary rounded-full z-10 relative">
-              <div className="absolute inset-0 bg-primary rounded-full animate-ping opacity-30" />
+              
+              <GlowCard className="p-6 pt-8 ml-6">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <step.icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-bold mb-1">{step.title}</h3>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                      <Calendar className="w-4 h-4" />
+                      <span>{step.duration}</span>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-muted-foreground text-sm mb-3 leading-relaxed">{step.description}</p>
+                <p className="text-xs text-muted-foreground/80 leading-relaxed">{step.details}</p>
+              </GlowCard>
+              
+              {/* Mobile Timeline Connector */}
+              {index < steps.length - 1 && (
+                <div className="absolute top-16 left-3 w-0.5 h-12 bg-gradient-to-b from-primary/50 to-primary/20" />
+              )}
             </div>
-            {index < steps.length - 1 && (
-              <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-0.5 h-16 bg-gradient-to-b from-primary to-primary/20" />
-            )}
-          </div>
+          </motion.div>
+        ))}
+      </div>
 
-          {/* Step Number */}
-          <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white font-bold text-xl">
-            {index + 1}
-          </div>
-        </motion.div>
-      ))}
+      {/* Desktop Layout - Enhanced Responsive Design */}
+      <div className="hidden lg:block">
+        {steps.map((step, index) => (
+          <motion.div
+            key={step.title}
+            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.15 }}
+            viewport={{ once: true }}
+            className={cn(
+              "relative flex items-center mb-16 last:mb-0",
+              "gap-8 xl:gap-12",
+              index % 2 === 1 && "flex-row-reverse"
+            )}
+          >
+            {/* Content Side */}
+            <div className="flex-1 max-w-lg">
+              <GlowCard className={cn(
+                "p-8 transform transition-all duration-300 hover:scale-[1.02]",
+                index % 2 === 0 ? "ml-8" : "mr-8"
+              )}>
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl flex items-center justify-center flex-shrink-0 border-2 border-primary/20">
+                    <step.icon className="w-8 h-8 text-primary" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-2xl font-bold mb-2 text-foreground">{step.title}</h3>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                      <Calendar className="w-4 h-4" />
+                      <span className="font-medium">{step.duration}</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <p className="text-muted-foreground mb-4 leading-relaxed text-base">{step.description}</p>
+                
+                {/* Additional Details */}
+                <div className="p-4 bg-gradient-to-r from-primary/5 to-accent/5 rounded-lg border-l-4 border-primary/30">
+                  <p className="text-sm text-muted-foreground leading-relaxed">{step.details}</p>
+                </div>
+              </GlowCard>
+            </div>
+
+            {/* Center Timeline */}
+            <div className="relative flex flex-col items-center">
+              {/* Timeline Connector */}
+              {index < steps.length - 1 && (
+                <div className="absolute top-16 w-0.5 h-20 bg-gradient-to-b from-primary via-primary/50 to-primary/20" />
+              )}
+              
+              {/* Main Node */}
+              <div className="relative w-6 h-6 bg-primary rounded-full z-20 shadow-lg">
+                <div className="absolute inset-0 bg-primary rounded-full animate-pulse opacity-40" />
+                <div className="absolute inset-0 bg-primary/30 rounded-full animate-ping" />
+              </div>
+            </div>
+
+            {/* Step Number Side */}
+            <div className="flex-1 max-w-32 flex justify-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-xl transform transition-all duration-300 hover:scale-110">
+                <span className="drop-shadow-lg">{index + 1}</span>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </div>
   )
 }
