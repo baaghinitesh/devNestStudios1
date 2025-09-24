@@ -59,10 +59,17 @@ export function Navbar() {
             {/* Logo */}
             <Link to="/" className="flex items-center group mr-8">
               <div className="relative">
+                {/* Light mode logo */}
                 <img 
                   src="/devnest-logo.png" 
                   alt="DevNest Studios" 
-                  className="h-10 w-auto transition-transform group-hover:scale-105"
+                  className="h-10 w-auto transition-all group-hover:scale-105 dark:hidden"
+                />
+                {/* Dark mode logo */}
+                <img 
+                  src="/devnest-logo-white.png" 
+                  alt="DevNest Studios" 
+                  className="h-10 w-auto transition-all group-hover:scale-105 hidden dark:block"
                 />
                 <div className="absolute inset-0 bg-primary/20 blur-lg rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>

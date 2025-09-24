@@ -5,8 +5,7 @@ import {
   Twitter, 
   Mail, 
   MapPin, 
-  Phone,
-  ExternalLink
+  Phone
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 
@@ -51,10 +50,17 @@ export function Footer() {
           {/* Brand section */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center mb-6">
+              {/* Light mode logo */}
               <img 
                 src="/devnest-logo.png" 
                 alt="DevNest Studios Logo" 
-                className="h-12 w-auto hover:scale-105 transition-transform duration-200"
+                className="h-12 w-auto hover:scale-105 transition-all duration-200 dark:hidden"
+              />
+              {/* Dark mode logo */}
+              <img 
+                src="/devnest-logo-white.png" 
+                alt="DevNest Studios Logo" 
+                className="h-12 w-auto hover:scale-105 transition-all duration-200 hidden dark:block"
               />
             </Link>
             
