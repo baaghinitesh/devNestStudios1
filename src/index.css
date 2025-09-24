@@ -147,6 +147,28 @@
     box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
   }
 
+  /* Responsive button utilities */
+  .btn-tablet-safe {
+    @apply min-w-0 max-w-none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .btn-tablet-compact {
+      @apply px-2 py-1.5 text-xs;
+      min-width: auto;
+    }
+  }
+
+  /* Prevent button text wrapping */
+  .btn-nowrap {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
   .particle-bg {
     position: relative;
     overflow: hidden;

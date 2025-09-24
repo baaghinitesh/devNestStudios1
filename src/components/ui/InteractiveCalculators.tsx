@@ -4,16 +4,10 @@ import {
   Calculator, 
   DollarSign, 
   TrendingUp, 
-  Clock, 
-  Users, 
-  BarChart3, 
-  PieChart,
   Target,
   Zap,
   CheckCircle,
   ArrowRight,
-  Info,
-  Slider,
   Download,
   Share2
 } from 'lucide-react';

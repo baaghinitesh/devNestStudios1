@@ -67,8 +67,8 @@ export function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Navigation - Large screens (1280px+) */}
+          <div className="hidden xl:flex items-center gap-8">
             <div className="relative nav-links">
               <div className="flex items-center gap-1">
                 {navigation.map((item) => (
@@ -112,7 +112,83 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Large Tablet Navigation - Compact menu (1024px-1279px) */}
+          <div className="hidden lg:flex xl:hidden items-center gap-4">
+            <div className="relative nav-links">
+              <div className="flex items-center gap-0.5">
+                {navigation.slice(0, 5).map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    data-nav-link={item.href}
+                    data-nav-item
+                    className={cn(
+                      'px-2 py-1.5 text-xs font-medium rounded-md transition-colors relative z-10',
+                      'hover:text-primary cursor-pointer',
+                      location.pathname === item.href
+                        ? 'text-primary'
+                        : 'text-foreground/80'
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                {/* Dropdown for remaining items */}
+                <div className="relative group">
+                  <button className="px-2 py-1.5 text-xs font-medium rounded-md transition-colors hover:text-primary cursor-pointer flex items-center gap-1">
+                    More
+                    <ChevronDown className="w-3 h-3" />
+                  </button>
+                  <div className="absolute top-full right-0 mt-1 bg-background border border-border rounded-lg shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 min-w-[140px]">
+                    {navigation.slice(5).map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className="block px-3 py-2 text-sm hover:text-primary hover:bg-primary/10 transition-colors"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                    <Link
+                      to="/trust-badges"
+                      className="block px-3 py-2 text-sm hover:text-primary hover:bg-primary/10 transition-colors"
+                    >
+                      Trust & Credentials
+                    </Link>
+                    <Link
+                      to="/video-walkthroughs"
+                      className="block px-3 py-2 text-sm hover:text-primary hover:bg-primary/10 transition-colors"
+                    >
+                      Video Walkthroughs
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <Button variant="outline" size="sm" className="px-3 py-1.5 text-xs" asChild>
+                <Link to="/client-portal">Portal</Link>
+              </Button>
+              <Button variant="primary" size="sm" className="px-3 py-1.5 text-xs" asChild>
+                <Link to="/contact">Quote</Link>
+              </Button>
+            </div>
+          </div>
+
+          {/* Medium Tablet Navigation - Buttons only (768px-1023px) */}
+          <div className="hidden md:flex lg:hidden items-center gap-2">
+            <ThemeToggle />
+            <Button variant="outline" size="sm" className="btn-tablet-compact btn-nowrap min-w-[80px]" asChild>
+              <Link to="/client-portal">Portal</Link>
+            </Button>
+            <Button variant="primary" size="sm" className="btn-tablet-compact btn-nowrap min-w-[70px]" asChild>
+              <Link to="/contact">Quote</Link>
+            </Button>
+          </div>
+
+          {/* Mobile menu button - only show on small screens */}
           <div className="md:hidden flex items-center gap-2">
             <ThemeToggle />
             <button
@@ -167,8 +243,27 @@ export function Navbar() {
                   Trust & Credentials
                 </Link>
                 
-                <div className="pt-4 mt-4 border-t border-border/50">
-                  <Button variant="primary" size="sm" className="w-full" asChild>
+                <Link
+                  to="/video-walkthroughs"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    'block px-4 py-3 text-base font-medium rounded-lg transition-colors cursor-pointer',
+                    'hover:text-primary hover:bg-primary/10',
+                    location.pathname === '/video-walkthroughs'
+                      ? 'text-primary bg-primary/10'
+                      : 'text-foreground/80'
+                  )}
+                >
+                  Video Walkthroughs
+                </Link>
+                
+                <div className="pt-4 mt-4 border-t border-border/50 space-y-3">
+                  <Button variant="outline" size="md" className="w-full" asChild>
+                    <Link to="/client-portal" onClick={() => setMobileMenuOpen(false)}>
+                      Client Portal
+                    </Link>
+                  </Button>
+                  <Button variant="primary" size="md" className="w-full" asChild>
                     <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
                       Get Quote
                     </Link>

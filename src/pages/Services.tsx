@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
+import SEOOptimizations from '@/components/seo/SEOOptimizations'
 import { 
   Code2, 
   Smartphone, 
@@ -29,7 +31,9 @@ import {
   Monitor,
   Settings,
   BookOpen,
-  CreditCard
+  CreditCard,
+  Play,
+  TrendingUp
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { GlowCard } from '@/components/ui/GlowCard'
@@ -752,7 +756,47 @@ export function Services() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.3])
 
   return (
-    <div ref={containerRef} className="min-h-screen pt-20">
+    <>
+      <SEOOptimizations 
+        title="Professional Development Services | DevNestStudios"
+        description="Comprehensive software development services including web development, mobile apps, UX/UI design, product strategy, and technical consulting. Transform your ideas into powerful digital solutions."
+        keywords={[
+          'web development services',
+          'mobile app development',
+          'UX UI design services',
+          'product strategy consulting',
+          'full-stack development',
+          'react development services',
+          'software consulting',
+          'digital transformation'
+        ]}
+        canonicalUrl="https://devneststudios.com/services"
+        ogType="service"
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Services', url: '/services' }
+        ]}
+        services={services.map(service => ({
+          name: service.title,
+          description: service.description,
+          price: `Starting at $${service.pricing.starter.toLocaleString()}`
+        }))}
+        faq={[
+          {
+            question: "What services do you offer?",
+            answer: "We offer comprehensive software development services including web development, mobile app development, UX/UI design, product strategy, and technical consulting."
+          },
+          {
+            question: "How long does a typical project take?",
+            answer: "Project timelines vary based on complexity and scope. Simple websites take 2-4 weeks, while complex applications can take 3-6 months. We provide detailed timelines during our initial consultation."
+          },
+          {
+            question: "Do you provide ongoing support?",
+            answer: "Yes, we provide comprehensive post-launch support including maintenance, updates, hosting, and technical support to ensure your application continues to perform optimally."
+          }
+        ]}
+      />
+      <div ref={containerRef} className="min-h-screen pt-20">
       {/* Parallax Hero Section */}
       <motion.section 
         style={{ y, opacity }}
@@ -761,7 +805,7 @@ export function Services() {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
         
         <div className="container mx-auto px-6 relative z-10">
-          <motion.div
+                <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -823,8 +867,8 @@ export function Services() {
 
       {/* Services Grid */}
       <section className="py-20">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+              <div className="container mx-auto px-6">
+                <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               What We{' '}
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -998,6 +1042,100 @@ export function Services() {
         </div>
       </section>
 
+      {/* Video Walkthroughs Section */}
+      <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-accent/5">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl md:text-6xl font-bold mb-6">
+                See Our Work{' '}
+                <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                  In Action
+                </span>
+              </h2>
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed">
+                Get an inside look at our development process through comprehensive video walkthroughs, 
+                real project case studies, and expert tutorials.
+              </p>
+            </motion.div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <motion.div
+              className="text-center"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center">
+                <Play className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Process Demonstrations</h3>
+              <p className="text-muted-foreground mb-4">
+                Watch our team work through real development challenges and see our methodologies in practice.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="text-center"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                <TrendingUp className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Case Study Videos</h3>
+              <p className="text-muted-foreground mb-4">
+                Detailed breakdowns of successful projects with measurable results and client testimonials.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="text-center"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center">
+                <BookOpen className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Expert Tutorials</h3>
+              <p className="text-muted-foreground mb-4">
+                Learn from our experienced developers through comprehensive tutorials and best practice guides.
+              </p>
+            </motion.div>
+          </div>
+
+          <div className="text-center mt-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <Button size="lg" className="btn-nowrap" asChild>
+                <Link to="/video-walkthroughs">
+                  <Play className="w-5 h-5 mr-2" />
+                  Watch Video Walkthroughs
+                </Link>
+              </Button>
+              <p className="text-sm text-muted-foreground mt-4">
+                25+ videos • 50k+ views • New content weekly
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Partner Integrations Section */}
       <section className="py-20 bg-muted/20">
         <div className="container mx-auto px-6">
@@ -1099,7 +1237,8 @@ export function Services() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   )
 }
 
@@ -1229,7 +1368,7 @@ function ServiceCard({ service, index, isSelected, isHovered, onSelect, onHover 
           
           <div className="grid grid-cols-2 gap-2">
             {service.demoLink && (
-              <Button size="sm" variant="outline" className="text-xs" asChild>
+              <Button size="sm" variant="outline" className="text-xs btn-nowrap" asChild>
                 <a href={service.demoLink} target="_blank" rel="noopener noreferrer">
                   <Monitor className="w-3 h-3 mr-1" />
                   Demo
@@ -1237,7 +1376,7 @@ function ServiceCard({ service, index, isSelected, isHovered, onSelect, onHover 
               </Button>
             )}
             {service.caseStudyLink && (
-              <Button size="sm" variant="outline" className="text-xs" asChild>
+              <Button size="sm" variant="outline" className="text-xs btn-nowrap" asChild>
                 <a href={service.caseStudyLink}>
                   <BookOpen className="w-3 h-3 mr-1" />
                   Case Study
@@ -1245,7 +1384,7 @@ function ServiceCard({ service, index, isSelected, isHovered, onSelect, onHover 
               </Button>
             )}
             {!service.demoLink && !service.caseStudyLink && (
-              <Button size="sm" variant="outline" className="col-span-2 text-xs" asChild>
+              <Button size="sm" variant="outline" className="col-span-2 text-xs btn-nowrap" asChild>
                 <a href="/contact">
                   <MessageSquare className="w-3 h-3 mr-1" />
                   Start a Project

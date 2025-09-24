@@ -1,6 +1,9 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import { ThemeProvider } from '@/contexts/ThemeContext'
+import SEOOptimizations from '@/components/seo/SEOOptimizations'
+import PerformanceProvider from '@/components/performance/PerformanceOptimizations'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
@@ -24,10 +27,13 @@ import NotFound from '@/pages/NotFound'
 import Auth from '@/pages/Auth'
 import ClientPortal from '@/pages/ClientPortal'
 import TrustAndCredentials from '@/pages/TrustAndCredentials'
+import VideoWalkthroughs from '@/pages/VideoWalkthroughs'
 
 function App() {
   return (
-    <ThemeProvider>
+    <HelmetProvider>
+      <PerformanceProvider>
+        <ThemeProvider>
       <Router>
         <div className="min-h-screen bg-background text-foreground">
           <Navbar />
@@ -48,6 +54,7 @@ function App() {
                 <Route path="/auth/login" element={<Auth />} />
                 <Route path="/client-portal" element={<ClientPortal />} />
                 <Route path="/trust-badges" element={<TrustAndCredentials />} />
+                <Route path="/video-walkthroughs" element={<VideoWalkthroughs />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
           </main>
@@ -57,8 +64,11 @@ function App() {
           <AIQuickAssistant />
           <GamifiedRewards />
         </div>
+        <SEOOptimizations />
       </Router>
-    </ThemeProvider>
+        </ThemeProvider>
+      </PerformanceProvider>
+    </HelmetProvider>
   )
 }
 
