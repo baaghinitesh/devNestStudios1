@@ -21,6 +21,8 @@ import Contact from '@/pages/Contact'
 import Privacy from '@/pages/Privacy'
 import Terms from '@/pages/Terms'
 import NotFound from '@/pages/NotFound'
+import Auth from '@/pages/Auth'
+import ClientPortal from '@/pages/ClientPortal'
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
+                <Route path="/auth/login" element={<Auth />} />
+                <Route path="/client-portal" element={<ClientPortal />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
           </main>

@@ -103,6 +103,9 @@ export function Navbar() {
 
             <div className="flex items-center gap-3">
               <ThemeToggle />
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/client-portal">Client Portal</Link>
+              </Button>
               <Button variant="primary" size="sm" asChild>
                 <Link to="/contact">Get Quote</Link>
               </Button>

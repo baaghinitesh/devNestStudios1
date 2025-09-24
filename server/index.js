@@ -13,6 +13,7 @@ import blogRoutes from './routes/blog.js';
 import projectRoutes from './routes/projects.js';
 import contactRoutes from './routes/contact.js';
 import authRoutes from './routes/auth.js';
+import clientPortalRoutes from './routes/clientPortal.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -66,6 +67,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/blog', blogRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/client-portal', clientPortalRoutes);
 
 // Serve static files in production
 if (process.env.NODE_ENV === 'production') {
