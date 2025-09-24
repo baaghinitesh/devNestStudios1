@@ -1,0 +1,45 @@
+/* Logo Glow Effects for Dark Mode Visibility */
+
+/* Light mode - no glow needed */
+.logo-glow {
+  filter: none;
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+/* Dark mode - add white glow to make black text visible */
+@media (prefers-color-scheme: dark) {
+  .logo-glow {
+    filter: 
+      drop-shadow(0 0 3px rgba(255, 255, 255, 0.7)) 
+      drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) 
+      drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+  }
+}
+
+/* When dark theme is applied via class (Tailwind dark mode) */
+.dark .logo-glow {
+  filter: 
+    drop-shadow(0 0 3px rgba(255, 255, 255, 0.7)) 
+    drop-shadow(0 0 6px rgba(255, 255, 255, 0.5)) 
+    drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+/* Hover effects */
+.logo-glow:hover {
+  filter: 
+    drop-shadow(0 0 4px rgba(255, 255, 255, 0.8)) 
+    drop-shadow(0 0 8px rgba(255, 255, 255, 0.6)) 
+    drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+}
+
+/* Light mode hover - subtle enhancement */
+@media (prefers-color-scheme: light) {
+  .logo-glow:hover {
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.1));
+  }
+}
+
+/* Light mode with class */
+.light .logo-glow:hover {
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.1));
+}
