@@ -28,6 +28,7 @@ import { Button } from '../components/ui/Button';
 import { GlowCard } from '../components/ui/GlowCard';
 import { FloatingElements } from '../components/ui/FloatingElements';
 import { CounterAnimation } from '../components/ui/CounterAnimation';
+import TrustBadgesSection from '../components/ui/TrustBadgesSection';
 
 interface TeamMember {
   id: string;
@@ -1395,6 +1396,10 @@ export default function About() {
           </motion.div>
         </div>
       </section>
+      
+      {/* Trust & Credentials Section */}
+      <TrustBadgesSection />
+      
     </div>
   );
 }

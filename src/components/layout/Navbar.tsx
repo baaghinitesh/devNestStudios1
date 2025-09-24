@@ -153,6 +153,20 @@ export function Navbar() {
                   </Link>
                 ))}
                 
+                <Link
+                  to="/trust-badges"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    'block px-4 py-3 text-base font-medium rounded-lg transition-colors cursor-pointer',
+                    'hover:text-primary hover:bg-primary/10',
+                    location.pathname === '/trust-badges'
+                      ? 'text-primary bg-primary/10'
+                      : 'text-foreground/80'
+                  )}
+                >
+                  Trust & Credentials
+                </Link>
+                
                 <div className="pt-4 mt-4 border-t border-border/50">
                   <Button variant="primary" size="sm" className="w-full" asChild>
                     <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>

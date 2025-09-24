@@ -23,6 +23,7 @@ import Terms from '@/pages/Terms'
 import NotFound from '@/pages/NotFound'
 import Auth from '@/pages/Auth'
 import ClientPortal from '@/pages/ClientPortal'
+import TrustAndCredentials from '@/pages/TrustAndCredentials'
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/auth/login" element={<Auth />} />
                 <Route path="/client-portal" element={<ClientPortal />} />
+                <Route path="/trust-badges" element={<TrustAndCredentials />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
           </main>
