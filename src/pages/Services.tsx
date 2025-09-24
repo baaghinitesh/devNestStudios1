@@ -41,6 +41,7 @@ import { CounterAnimation } from '@/components/ui/CounterAnimation'
 import { MicroDemo } from '@/components/ui/MicroDemo'
 import PaymentIntegration from '@/components/integrations/PaymentIntegration'
 import AuthIntegration from '@/components/integrations/AuthIntegration'
+import PricingTransparency from '@/components/ui/PricingTransparency'
 import { cn } from '@/lib/utils'
 
 interface Service {
@@ -916,6 +917,24 @@ export function Services() {
               <PricingCard key={tier.name} tier={tier} index={index} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Interactive Pricing Calculator */}
+      <section className="py-20 bg-gradient-to-b from-background to-muted/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+              Interactive{' '}
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Pricing Calculator
+              </span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Get personalized pricing based on your specific requirements and project complexity
+            </p>
+          </div>
+          <PricingTransparency />
         </div>
       </section>
 
