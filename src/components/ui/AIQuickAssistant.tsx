@@ -237,7 +237,7 @@ const AIQuickAssistant: React.FC = () => {
       {/* Floating Assistant Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 ${isOpen ? 'hidden' : 'flex'} items-center gap-2 bg-gradient-to-r from-[#BF1152] to-[#045B59] text-white px-4 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300`}
+        className={`fixed bottom-6 right-6 z-50 ${isOpen ? 'hidden' : 'flex'} items-center gap-2 bg-[#BF1152] hover:bg-[#A10E47] text-white px-4 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300`}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, y: 20 }}
@@ -263,16 +263,16 @@ const AIQuickAssistant: React.FC = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bottom-6 right-6 z-50 w-96 h-[500px] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 flex flex-col overflow-hidden"
+            className="fixed bottom-6 right-6 z-50 w-96 h-[500px] bg-gradient-to-br from-[#f0f9ff] via-[#e0f7fa] to-[#e8f5e8] dark:from-[#0f172a] dark:via-[#14636C]/10 dark:to-[#065f46]/10 rounded-2xl shadow-2xl border border-[#14636C]/20 dark:border-[#14636C]/30 flex flex-col overflow-hidden backdrop-blur-sm"
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ duration: 0.3 }}
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#BF1152] to-[#045B59] text-white p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#14636C] to-[#0f5054] text-white p-4 flex items-center justify-between shadow-md">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-white/25 rounded-full flex items-center justify-center shadow-sm">
                   <img 
                     src="/favicon.ico" 
                     alt="Apex" 
@@ -298,14 +298,14 @@ const AIQuickAssistant: React.FC = () => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-transparent via-white/40 to-white/60 dark:from-transparent dark:via-gray-900/20 dark:to-gray-900/40">
               {messages.map((message) => (
                 <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[80%] ${
+                  <div className={`max-w-[80%] shadow-sm ${
                     message.type === 'user' 
-                      ? 'bg-gradient-to-r from-[#BF1152] to-[#045B59] text-white' 
-                      : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-                  } rounded-2xl px-4 py-2`}>
+                      ? 'bg-[#14636C] text-white' 
+                      : 'bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-gray-100 border border-[#14636C]/10'
+                  } rounded-2xl px-4 py-2 backdrop-blur-sm`}>
                     <div className="flex items-start gap-2">
                       {message.type === 'bot' && (
                         <div className="w-4 h-4 mt-0.5 flex-shrink-0 relative">
@@ -329,7 +329,7 @@ const AIQuickAssistant: React.FC = () => {
 
                     {/* Package Recommendation */}
                     {message.packageRecommendation && (
-                      <div className="mt-3 p-3 bg-white/10 rounded-lg">
+                      <div className="mt-3 p-3 bg-white/20 rounded-lg border border-white/20">
                         <div className="flex items-center gap-2 mb-2">
                           <Package className="w-4 h-4" />
                           <span className="font-semibold">{message.packageRecommendation.name}</span>
@@ -368,7 +368,7 @@ const AIQuickAssistant: React.FC = () => {
                           <button
                             key={idx}
                             onClick={() => handleSuggestionClick(suggestion)}
-                            className="block w-full text-left px-3 py-2 text-xs bg-white/20 hover:bg-white/30 rounded-lg transition-colors"
+                            className="block w-full text-left px-3 py-2 text-xs bg-white/25 hover:bg-white/35 rounded-lg transition-all duration-200 border border-white/20 hover:border-white/30"
                           >
                             {suggestion}
                           </button>
@@ -382,7 +382,7 @@ const AIQuickAssistant: React.FC = () => {
               {/* Typing Indicator */}
               {isTyping && (
                 <div className="flex justify-start">
-                  <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl px-4 py-2">
+                  <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl px-4 py-2 border border-[#14636C]/10 shadow-sm backdrop-blur-sm">
                     <div className="flex items-center gap-2">
                       <div className="w-4 h-4 relative">
                         <img 
@@ -410,7 +410,7 @@ const AIQuickAssistant: React.FC = () => {
             </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="p-4 border-t border-[#14636C]/20 dark:border-[#14636C]/30 bg-white/60 dark:bg-gray-900/60 backdrop-blur-sm">
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -418,13 +418,13 @@ const AIQuickAssistant: React.FC = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                   placeholder="Type your message..."
-                  className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BF1152] text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                  className="flex-1 px-3 py-2 border border-[#14636C]/30 dark:border-[#14636C]/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#14636C]/50 focus:border-[#14636C] text-sm bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-gray-100 backdrop-blur-sm transition-all duration-200"
                   disabled={isTyping}
                 />
                 <button
                   onClick={handleSendMessage}
                   disabled={!inputValue.trim() || isTyping}
-                  className="px-3 py-2 bg-gradient-to-r from-[#BF1152] to-[#045B59] text-white rounded-lg hover:from-[#A10E47] hover:to-[#034A4A] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                  className="px-3 py-2 bg-[#14636C] hover:bg-[#0f5054] text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-sm hover:shadow-md"
                 >
                   <Send className="w-4 h-4" />
                 </button>
