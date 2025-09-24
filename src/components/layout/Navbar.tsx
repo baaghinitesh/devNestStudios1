@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, Code2, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useScrollDirection } from '@/hooks/useIntersectionObserver'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
@@ -57,14 +57,15 @@ export function Navbar() {
         <div className="mx-auto max-w-7xl">
           <div className="flex h-16 items-center">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2 group mr-8">
+            <Link to="/" className="flex items-center group mr-8">
               <div className="relative">
-                <Code2 className="w-8 h-8 text-primary transition-transform group-hover:rotate-12" />
-                <div className="absolute inset-0 bg-primary/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                <img 
+                  src="/devnest-logo.png" 
+                  alt="DevNest Studios" 
+                  className="h-10 w-auto transition-transform group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-primary/20 blur-lg rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                DevNestStudios
-              </span>
             </Link>
 
             {/* Desktop Navigation - Large screens (1280px+) */}

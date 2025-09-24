@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { 
-  Code2, 
   Github, 
   Linkedin, 
   Twitter, 
@@ -51,14 +50,12 @@ export function Footer() {
         <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand section */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-2 mb-6">
-              <div className="relative">
-                <Code2 className="w-8 h-8 text-primary" />
-                <div className="absolute inset-0 bg-primary/20 blur-lg rounded-full animate-pulse" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                DevNestStudios
-              </span>
+            <Link to="/" className="flex items-center mb-6">
+              <img 
+                src="/devnest-logo.png" 
+                alt="DevNest Studios Logo" 
+                className="h-12 w-auto hover:scale-105 transition-transform duration-200"
+              />
             </Link>
             
             <p className="text-muted-foreground mb-6 max-w-md">
