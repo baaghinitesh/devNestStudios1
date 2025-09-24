@@ -118,7 +118,23 @@ export default function NotFound() {
             transition={{ duration: 1, delay: 1.5 }}
             className="mt-12"
           >
-            <div className="text-4xl">🚀</div>
+            <div className="flex items-center justify-center gap-3">
+              <div className="w-8 h-8 relative">
+                <img 
+                  src="/favicon.ico" 
+                  alt="DevNest" 
+                  className="w-8 h-8 rounded-full animate-pulse" 
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling.style.display = 'block';
+                  }}
+                />
+                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center animate-pulse" style={{display: 'none'}}>
+                  <div className="w-4 h-4 bg-primary rounded-full" />
+                </div>
+              </div>
+              <div className="text-4xl">🚀</div>
+            </div>
             <p className="text-sm text-muted-foreground mt-2">
               While you're here, our rockets are still launching amazing projects!
             </p>

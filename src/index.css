@@ -50,6 +50,12 @@
     --shadow-strong: 0 30px 80px rgba(0, 0, 0, 0.16);
     --blur-light: blur(20px);
     --blur-medium: blur(40px);
+    
+    /* Apex AI Assistant Colors */
+    --apex-primary: #BF1152;
+    --apex-secondary: #045B59;
+    --apex-primary-hover: #A10E47;
+    --apex-secondary-hover: #034A4A;
   }
 
   .dark {

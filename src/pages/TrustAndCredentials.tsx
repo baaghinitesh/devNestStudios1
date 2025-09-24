@@ -3,7 +3,7 @@ import TrustBadges from '../components/ui/TrustBadges';
 
 const TrustAndCredentialsPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
       <TrustBadges />
     </div>
   );

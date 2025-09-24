@@ -50,7 +50,7 @@ const AIQuickAssistant: React.FC = () => {
   const questionFlow: QuestionFlow[] = [
     {
       id: 'welcome',
-      question: "Hi! I'm your AI assistant 🤖 I'll help you find the perfect development package. What type of project do you need?",
+      question: "Hi! I'm Apex, your AI assistant 🤖 I'll help you find the perfect development package. What type of project do you need?",
       options: ['Web Application', 'Mobile App', 'E-commerce Store', 'AI/ML Solution', 'Custom Software']
     },
     {
@@ -237,14 +237,25 @@ const AIQuickAssistant: React.FC = () => {
       {/* Floating Assistant Button */}
       <motion.button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 ${isOpen ? 'hidden' : 'flex'} items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300`}
+        className={`fixed bottom-6 right-6 z-50 ${isOpen ? 'hidden' : 'flex'} items-center gap-2 bg-gradient-to-r from-[#BF1152] to-[#045B59] text-white px-4 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300`}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <Sparkles className="w-5 h-5" />
-        <span className="font-medium">Ask AI</span>
+        <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+          <img 
+            src="/favicon.ico" 
+            alt="Apex" 
+            className="w-4 h-4 rounded-full" 
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+              e.currentTarget.nextElementSibling.style.display = 'block';
+            }}
+          />
+          <Sparkles className="w-3 h-3 text-white" style={{display: 'none'}} />
+        </div>
+        <span className="font-medium">Apex</span>
         <MessageCircle className="w-5 h-5" />
       </motion.button>
 
@@ -259,13 +270,22 @@ const AIQuickAssistant: React.FC = () => {
             transition={{ duration: 0.3 }}
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-[#BF1152] to-[#045B59] text-white p-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                  <Bot className="w-4 h-4" />
+                  <img 
+                    src="/favicon.ico" 
+                    alt="Apex" 
+                    className="w-5 h-5 rounded-full" 
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling.style.display = 'block';
+                    }}
+                  />
+                  <Bot className="w-4 h-4 text-white" style={{display: 'none'}} />
                 </div>
                 <div>
-                  <h3 className="font-semibold">AI Assistant</h3>
+                  <h3 className="font-semibold">Apex AI</h3>
                   <p className="text-xs opacity-80">Here to help you find the perfect package</p>
                 </div>
               </div>
@@ -283,12 +303,23 @@ const AIQuickAssistant: React.FC = () => {
                 <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`max-w-[80%] ${
                     message.type === 'user' 
-                      ? 'bg-blue-600 text-white' 
+                      ? 'bg-gradient-to-r from-[#BF1152] to-[#045B59] text-white' 
                       : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
                   } rounded-2xl px-4 py-2`}>
                     <div className="flex items-start gap-2">
                       {message.type === 'bot' && (
-                        <Bot className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                        <div className="w-4 h-4 mt-0.5 flex-shrink-0 relative">
+                          <img 
+                            src="/favicon.ico" 
+                            alt="Apex" 
+                            className="w-4 h-4 rounded-full" 
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                              e.currentTarget.nextElementSibling.style.display = 'block';
+                            }}
+                          />
+                          <Bot className="w-4 h-4 text-current" style={{display: 'none'}} />
+                        </div>
                       )}
                       <p className="text-sm">{message.content}</p>
                       {message.type === 'user' && (
@@ -353,7 +384,18 @@ const AIQuickAssistant: React.FC = () => {
                 <div className="flex justify-start">
                   <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl px-4 py-2">
                     <div className="flex items-center gap-2">
-                      <Bot className="w-4 h-4" />
+                      <div className="w-4 h-4 relative">
+                        <img 
+                          src="/favicon.ico" 
+                          alt="Apex" 
+                          className="w-4 h-4 rounded-full" 
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            e.currentTarget.nextElementSibling.style.display = 'block';
+                          }}
+                        />
+                        <Bot className="w-4 h-4 text-current" style={{display: 'none'}} />
+                      </div>
                       <div className="flex gap-1">
                         <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
                         <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
@@ -376,13 +418,13 @@ const AIQuickAssistant: React.FC = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                   placeholder="Type your message..."
-                  className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                  className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BF1152] text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                   disabled={isTyping}
                 />
                 <button
                   onClick={handleSendMessage}
                   disabled={!inputValue.trim() || isTyping}
-                  className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-3 py-2 bg-gradient-to-r from-[#BF1152] to-[#045B59] text-white rounded-lg hover:from-[#A10E47] hover:to-[#034A4A] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   <Send className="w-4 h-4" />
                 </button>

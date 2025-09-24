@@ -45,45 +45,80 @@ const socialLinks = [
 export function Footer() {
   const { theme } = useTheme()
   
-  // Use white logo for dark themes (dark, aurora, matrix)
-  const useWhiteLogo = theme === 'dark' || theme === 'aurora' || theme === 'matrix'
+  // Use white logo for dark themes OR light theme with dark footer
+  const useWhiteLogo = theme === 'dark' || theme === 'aurora' || theme === 'matrix' || theme === 'light'
+  
+  // Use dark footer only for light theme, theme-matching footer for others
+  const isLightTheme = theme === 'light'
   
   return (
-    <footer className="bg-background border-t border-border">
+    <footer className={`relative ${isLightTheme ? 'footer-dark bg-gray-900 text-white' : 'bg-background border-t border-border'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main footer content */}
         <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand section */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center mb-6">
+            <Link to="/" className="flex items-center gap-3 mb-6">
               <img 
                 src={useWhiteLogo ? "/devnest-logo-white.png" : "/devnest-logo.png"}
                 alt="DevNest Studios Logo" 
                 className="h-12 w-auto hover:scale-105 transition-all duration-200"
               />
+              <div className="w-8 h-8 relative">
+                <img 
+                  src="/favicon.ico" 
+                  alt="DevNest Favicon" 
+                  className="w-8 h-8 rounded-full opacity-70 hover:opacity-100 transition-all duration-200"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling.style.display = 'block';
+                  }}
+                />
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center opacity-70 hover:opacity-100 transition-all duration-200" style={{display: 'none'}}>
+                  <div className="w-4 h-4 bg-primary/50 rounded-full" />
+                </div>
+              </div>
             </Link>
             
-            <p className="text-muted-foreground mb-6 max-w-md">
+            <p className={`mb-6 max-w-md ${
+              isLightTheme ? 'text-gray-300' : 'text-muted-foreground'
+            }`}>
               We bring ideas to life through product-grade engineering with delightful design 
               and human-first delivery. Let's build something amazing together.
             </p>
 
             {/* Contact info */}
             <div className="space-y-3 mb-6">
-              <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                <Mail className="w-4 h-4 flex-shrink-0" />
-                <a href="mailto:hello@devneststudios.com" className="hover:text-primary transition-colors">
+              <div className={`flex items-center gap-3 text-sm ${
+                isLightTheme ? 'text-gray-300' : 'text-muted-foreground'
+              }`}>
+                <Mail className={`w-4 h-4 flex-shrink-0 ${
+                  isLightTheme ? 'text-gray-400' : 'text-muted-foreground'
+                }`} />
+                <a href="mailto:hello@devneststudios.com" className={`${
+                  isLightTheme ? 'hover:text-white' : 'hover:text-primary'
+                } transition-colors`}>
                   hello@devneststudios.com
                 </a>
               </div>
-              <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                <Phone className="w-4 h-4 flex-shrink-0" />
-                <a href="tel:+1234567890" className="hover:text-primary transition-colors">
+              <div className={`flex items-center gap-3 text-sm ${
+                isLightTheme ? 'text-gray-300' : 'text-muted-foreground'
+              }`}>
+                <Phone className={`w-4 h-4 flex-shrink-0 ${
+                  isLightTheme ? 'text-gray-400' : 'text-muted-foreground'
+                }`} />
+                <a href="tel:+1234567890" className={`${
+                  isLightTheme ? 'hover:text-white' : 'hover:text-primary'
+                } transition-colors`}>
                   +1 (234) 567-8900
                 </a>
               </div>
-              <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                <MapPin className="w-4 h-4 flex-shrink-0" />
+              <div className={`flex items-center gap-3 text-sm ${
+                isLightTheme ? 'text-gray-300' : 'text-muted-foreground'
+              }`}>
+                <MapPin className={`w-4 h-4 flex-shrink-0 ${
+                  isLightTheme ? 'text-gray-400' : 'text-muted-foreground'
+                }`} />
                 <span>San Francisco, CA</span>
               </div>
             </div>
@@ -98,7 +133,11 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-muted hover:bg-primary hover:text-primary-foreground transition-colors flex items-center justify-center group"
+                    className={`w-10 h-10 rounded-lg flex items-center justify-center group transition-colors ${
+                      isLightTheme 
+                        ? 'footer-social-icon text-gray-300' 
+                        : 'bg-muted hover:bg-primary hover:text-primary-foreground'
+                    }`}
                     aria-label={social.name}
                   >
                     <Icon className="w-5 h-5 transition-transform group-hover:scale-110" />
@@ -110,13 +149,19 @@ export function Footer() {
 
           {/* Links sections */}
           <div>
-            <h3 className="text-sm font-semibold mb-4">Company</h3>
+            <h3 className={`text-sm font-semibold mb-4 ${
+              isLightTheme ? 'text-white' : 'text-foreground'
+            }`}>Company</h3>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className={`text-sm transition-colors ${
+                      isLightTheme 
+                        ? 'footer-link text-gray-300 hover:text-white' 
+                        : 'text-muted-foreground hover:text-primary'
+                    }`}
                   >
                     {link.name}
                   </Link>
@@ -126,13 +171,19 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold mb-4">Services</h3>
+            <h3 className={`text-sm font-semibold mb-4 ${
+              isLightTheme ? 'text-white' : 'text-foreground'
+            }`}>Services</h3>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className={`text-sm transition-colors ${
+                      isLightTheme 
+                        ? 'footer-link text-gray-300 hover:text-white' 
+                        : 'text-muted-foreground hover:text-primary'
+                    }`}
                   >
                     {link.name}
                   </Link>
@@ -142,13 +193,19 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold mb-4">Resources</h3>
+            <h3 className={`text-sm font-semibold mb-4 ${
+              isLightTheme ? 'text-white' : 'text-foreground'
+            }`}>Resources</h3>
             <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className={`text-sm transition-colors ${
+                      isLightTheme 
+                        ? 'footer-link text-gray-300 hover:text-white' 
+                        : 'text-muted-foreground hover:text-primary'
+                    }`}
                   >
                     {link.name}
                   </Link>
@@ -159,11 +216,17 @@ export function Footer() {
         </div>
 
         {/* Newsletter section */}
-        <div className="py-8 border-t border-border">
+        <div className={`py-8 border-t ${
+          isLightTheme ? 'border-gray-700' : 'border-border'
+        }`}>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
-              <h4 className="text-lg font-semibold mb-2">Stay Updated</h4>
-              <p className="text-sm text-muted-foreground">
+              <h4 className={`text-lg font-semibold mb-2 ${
+                isLightTheme ? 'text-white' : 'text-foreground'
+              }`}>Stay Updated</h4>
+              <p className={`text-sm ${
+                isLightTheme ? 'text-gray-300' : 'text-muted-foreground'
+              }`}>
                 Get insights on design, development, and digital trends.
               </p>
             </div>
@@ -172,7 +235,11 @@ export function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 md:w-64 px-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className={`flex-1 md:w-64 px-4 py-2 rounded-lg focus:outline-none ${
+                  isLightTheme 
+                    ? 'footer-newsletter-input text-white placeholder-gray-400'
+                    : 'bg-background border border-border focus:ring-2 focus:ring-primary/50'
+                }`}
               />
               <Button variant="primary" size="sm">
                 Subscribe
@@ -182,8 +249,12 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="py-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+        <div className={`py-6 border-t flex flex-col md:flex-row items-center justify-between gap-4 ${
+          isLightTheme ? 'border-gray-700' : 'border-border'
+        }`}>
+          <div className={`flex items-center gap-4 text-sm ${
+            isLightTheme ? 'text-gray-400' : 'text-muted-foreground'
+          }`}>
             <span>© 2024 DevNestStudios. All rights reserved.</span>
           </div>
           
@@ -192,7 +263,11 @@ export function Footer() {
               <Link
                 key={link.name}
                 to={link.href}
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className={`transition-colors ${
+                  isLightTheme 
+                    ? 'footer-link text-gray-400 hover:text-white'
+                    : 'text-muted-foreground hover:text-primary'
+                }`}
               >
                 {link.name}
               </Link>

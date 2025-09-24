@@ -10,10 +10,10 @@ import { useTheme } from '@/contexts/ThemeContext'
 
 const navigation = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
   { name: 'Services', href: '/services' },
   { name: 'Products', href: '/products' },
   { name: 'Projects', href: '/projects' },
+  { name: 'About', href: '/about' },
   { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' }
 ]
