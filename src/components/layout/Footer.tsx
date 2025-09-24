@@ -8,6 +8,7 @@ import {
   Phone
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { useTheme } from '@/contexts/ThemeContext'
 
 const footerLinks = {
   company: [
@@ -42,6 +43,11 @@ const socialLinks = [
 ]
 
 export function Footer() {
+  const { theme } = useTheme()
+  
+  // Use white logo for dark themes (dark, aurora, matrix)
+  const useWhiteLogo = theme === 'dark' || theme === 'aurora' || theme === 'matrix'
+  
   return (
     <footer className="bg-background border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,17 +56,10 @@ export function Footer() {
           {/* Brand section */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center mb-6">
-              {/* Light mode logo */}
               <img 
-                src="/devnest-logo.png" 
+                src={useWhiteLogo ? "/devnest-logo-white.png" : "/devnest-logo.png"}
                 alt="DevNest Studios Logo" 
-                className="h-12 w-auto hover:scale-105 transition-all duration-200 dark:hidden"
-              />
-              {/* Dark mode logo */}
-              <img 
-                src="/devnest-logo-white.png" 
-                alt="DevNest Studios Logo" 
-                className="h-12 w-auto hover:scale-105 transition-all duration-200 hidden dark:block"
+                className="h-12 w-auto hover:scale-105 transition-all duration-200"
               />
             </Link>
             

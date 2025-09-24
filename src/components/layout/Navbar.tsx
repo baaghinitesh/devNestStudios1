@@ -6,6 +6,7 @@ import { useScrollDirection } from '@/hooks/useIntersectionObserver'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { Button } from '@/components/ui/Button'
 import { NavCursorFollower } from '@/components/ui/CursorFollower'
+import { useTheme } from '@/contexts/ThemeContext'
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -22,6 +23,10 @@ export function Navbar() {
   const [activeIndicator, setActiveIndicator] = useState({ left: 0, width: 0 })
   const { scrollDirection, scrollY } = useScrollDirection()
   const location = useLocation()
+  const { theme } = useTheme()
+  
+  // Use white logo for dark themes (dark, aurora, matrix)
+  const useWhiteLogo = theme === 'dark' || theme === 'aurora' || theme === 'matrix'
 
   // Hide navbar on scroll down, show on scroll up
   const shouldHideNavbar = scrollDirection === 'down' && scrollY > 100
@@ -59,17 +64,10 @@ export function Navbar() {
             {/* Logo */}
             <Link to="/" className="flex items-center group mr-8">
               <div className="relative">
-                {/* Light mode logo */}
                 <img 
-                  src="/devnest-logo.png" 
+                  src={useWhiteLogo ? "/devnest-logo-white.png" : "/devnest-logo.png"}
                   alt="DevNest Studios" 
-                  className="h-10 w-auto transition-all group-hover:scale-105 dark:hidden"
-                />
-                {/* Dark mode logo */}
-                <img 
-                  src="/devnest-logo-white.png" 
-                  alt="DevNest Studios" 
-                  className="h-10 w-auto transition-all group-hover:scale-105 hidden dark:block"
+                  className="h-10 w-auto transition-all group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-primary/20 blur-lg rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
